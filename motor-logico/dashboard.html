@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Métricas en Vivo - Bot Cuantitativo de Trading</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-base: #0a0d14;
+            --bg-card: rgba(18, 24, 38, 0.75);
+            --bg-card-hover: rgba(26, 35, 56, 0.85);
+            --border-glass: rgba(255, 255, 255, 0.08);
+            --border-active: rgba(99, 102, 241, 0.3);
+            
+            --primary: #6366f1;
+            --primary-glow: rgba(99, 102, 241, 0.25);
+            --accent-cyan: #06b6d4;
+            --success: #10b981;
+            --success-glow: rgba(16, 185, 129, 0.2);
+            --danger: #ef4444;
+            --danger-glow: rgba(239, 68, 68, 0.2);
+            --warning: #f59e0b;
+            
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --text-dim: #64748b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.12) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(6, 182, 212, 0.08) 0px, transparent 50%);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding: 24px;
+        }
+
+        .container {
+            max-width: 1380px;
+            margin: 0 auto;
+        }
+
+        /* HEADER */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 24px;
+            border-bottom: 1px solid var(--border-glass);
+            margin-bottom: 24px;
+        }
+
+        .header-title {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .logo-icon {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, var(--primary), var(--accent-cyan));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            box-shadow: 0 0 20px var(--primary-glow);
+        }
+
+        h1 {
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .subtitle {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            color: var(--success);
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--success);
+            box-shadow: 0 0 8px var(--success);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.8); }
+        }
+
+        .btn {
+            background: var(--bg-card);
+            border: 1px solid var(--border-glass);
+            color: var(--text-main);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--primary);
+            box-shadow: 0 0 12px var(--primary-glow);
+        }
+
+        /* GRID PRINCIPAL */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .card {
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--border-glass);
+            border-radius: 16px;
+            padding: 20px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            border-color: var(--border-active);
+            transform: translateY(-2px);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .card-title {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--text-muted);
+        }
+
+        .card-icon {
+            font-size: 16px;
+        }
+
+        .card-value {
+            font-size: 32px;
+            font-weight: 800;
+            letter-spacing: -1px;
+            line-height: 1.1;
+            margin-bottom: 8px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .card-subtext {
+            font-size: 12px;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .edge-positive {
+            color: var(--success);
+            text-shadow: 0 0 12px var(--success-glow);
+        }
+
+        .edge-negative {
+            color: var(--danger);
+            text-shadow: 0 0 12px var(--danger-glow);
+        }
+
+        /* COMPARATIVA DE EQUILIBRIO */
+        .gauge-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border-glass);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .gauge-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .gauge-bar-wrapper {
+            position: relative;
+            background: rgba(255, 255, 255, 0.05);
+            height: 28px;
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1px solid var(--border-glass);
+        }
+
+        .gauge-fill {
+            height: 100%;
+            transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 14px;
+        }
+
+        .gauge-be-marker {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #fff;
+            box-shadow: 0 0 8px #fff;
+            z-index: 10;
+        }
+
+        .gauge-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: var(--text-dim);
+            margin-top: 8px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* TABLA DE OPERACIONES */
+        .table-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border-glass);
+            border-radius: 16px;
+            padding: 24px;
+            overflow-x: auto;
+        }
+
+        .table-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        th {
+            text-align: left;
+            padding: 12px 14px;
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid var(--border-glass);
+        }
+
+        td {
+            padding: 12px 14px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        tr:hover td {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .tag-call { background: rgba(16, 185, 129, 0.15); color: var(--success); border: 1px solid rgba(16, 185, 129, 0.3); }
+        .tag-put { background: rgba(239, 68, 68, 0.15); color: var(--danger); border: 1px solid rgba(239, 68, 68, 0.3); }
+        .tag-win { background: rgba(16, 185, 129, 0.2); color: var(--success); }
+        .tag-loss { background: rgba(239, 68, 68, 0.2); color: var(--danger); }
+        .tag-tie { background: rgba(245, 158, 11, 0.2); color: var(--warning); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- HEADER -->
+        <header>
+            <div class="header-title">
+                <div class="logo-icon">⚡</div>
+                <div>
+                    <h1>Bot Cuantitativo de Trading</h1>
+                    <div class="subtitle">EUR/USD Blitz (60s) • Motor de Alta Confluencia & Gestión de Riesgo Dinámica</div>
+                </div>
+            </div>
+            <div class="header-actions">
+                <div class="status-badge">
+                    <div class="status-dot"></div>
+                    <span id="system-status">SISTEMA ACTIVO</span>
+                </div>
+                <button class="btn" onclick="fetchMetrics()">🔄 Actualizar</button>
+            </div>
+        </header>
+
+        <!-- KPI GRID -->
+        <div class="metrics-grid">
+            <!-- Win Rate -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title">Win Rate Sesión</span>
+                    <span class="card-icon">🎯</span>
+                </div>
+                <div class="card-value" id="val-winrate">--%</div>
+                <div class="card-subtext" id="val-trades-count">0 Operaciones (0W / 0L / 0D)</div>
+            </div>
+
+            <!-- Punto de Equilibrio -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title">Break-Even Requerido</span>
+                    <span class="card-icon">⚖️</span>
+                </div>
+                <div class="card-value" id="val-breakeven">54.95%</div>
+                <div class="card-subtext">Payout Configurado: <strong id="val-payout">82%</strong></div>
+            </div>
+
+            <!-- Ventaja Estadística (Edge) -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title">Ventaja Estadística (Edge)</span>
+                    <span class="card-icon">📊</span>
+                </div>
+                <div class="card-value" id="val-edge">--%</div>
+                <div class="card-subtext" id="val-edge-status">Calculando...</div>
+            </div>
+
+            <!-- PnL Neto -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title">Rendimiento Neto</span>
+                    <span class="card-icon">💰</span>
+                </div>
+                <div class="card-value" id="val-pnl">$0.00</div>
+                <div class="card-subtext">Profit Factor: <strong id="val-pf">1.00</strong></div>
+            </div>
+        </div>
+
+        <!-- MEDIDOR DE EQUILIBRIO MATEMÁTICO -->
+        <div class="gauge-section">
+            <div class="gauge-header">
+                <div>
+                    <h2 style="font-size: 16px; font-weight: 700;">Comparación de Edge: Win Rate vs Punto de Equilibrio (54.95%)</h2>
+                    <p style="font-size: 12px; color: var(--text-muted);">Si la barra verde supera la marca blanca, el sistema tiene ventaja matemática positiva.</p>
+                </div>
+                <div id="badge-edge-verdict" class="tag tag-tie">EVALUANDO</div>
+            </div>
+            <div class="gauge-bar-wrapper">
+                <div class="gauge-be-marker" style="left: 54.95%;" title="Punto de Equilibrio: 54.95%"></div>
+                <div class="gauge-fill" id="gauge-progress" style="width: 50%; background: var(--primary);"></div>
+            </div>
+            <div class="gauge-labels">
+                <span>0%</span>
+                <span style="color: var(--text-main); font-weight: 600;">⚖️ Equilibrio: 54.95%</span>
+                <span>100%</span>
+            </div>
+        </div>
+
+        <!-- TABLA DE OPERACIONES RECIENTES -->
+        <div class="table-section">
+            <div class="table-title">
+                <span>📜 Últimas Operaciones Registradas</span>
+                <span style="font-size: 12px; color: var(--text-muted);" id="table-total-info">Total: 0</span>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Hora</th>
+                        <th>ID Orden</th>
+                        <th>Tipo</th>
+                        <th>Monto</th>
+                        <th>Entrada ──▶ Salida</th>
+                        <th>Resultado</th>
+                        <th>PnL Neto</th>
+                        <th>RSI</th>
+                        <th>B. Bollinger</th>
+                        <th>Score</th>
+                    </tr>
+                </thead>
+                <tbody id="trades-tbody">
+                    <tr>
+                        <td colspan="10" style="text-align: center; color: var(--text-dim); padding: 24px;">Cargando operaciones...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        async function fetchMetrics() {
+            try {
+                const res = await fetch('/metrics/live');
+                if (!res.ok) return;
+                const data = await res.json();
+
+                // Actualizar KPIs
+                const wr = data.win_rate_global !== undefined ? data.win_rate_global : data.win_rate;
+                const be = data.break_even_win_rate || 54.95;
+                const edge = data.edge_vs_breakeven !== undefined ? data.edge_vs_breakeven : (wr - be);
+                const pnl = data.pnl_neto !== undefined ? data.pnl_neto : 0;
+                const pf = data.profit_factor || 0;
+
+                document.getElementById('val-winrate').innerText = `${wr.toFixed(1)}%`;
+                document.getElementById('val-breakeven').innerText = `${be.toFixed(2)}%`;
+                document.getElementById('val-payout').innerText = `${data.payout_percent || 82}%`;
+
+                const edgeEl = document.getElementById('val-edge');
+                const edgeSign = edge >= 0 ? `+${edge.toFixed(2)}%` : `${edge.toFixed(2)}%`;
+                edgeEl.innerText = edgeSign;
+                edgeEl.className = `card-value ${edge >= 0 ? 'edge-positive' : 'edge-negative'}`;
+
+                const edgeStatusEl = document.getElementById('val-edge-status');
+                if (edge > 0) {
+                    edgeStatusEl.innerHTML = `🟢 <strong style="color: var(--success);">Edge Positivo</strong> (Supera equilibrio)`;
+                } else {
+                    edgeStatusEl.innerHTML = `🔴 <strong style="color: var(--danger);">Edge Negativo</strong> (Pérdida estructural)`;
+                }
+
+                const pnlEl = document.getElementById('val-pnl');
+                pnlEl.innerText = `${pnl >= 0 ? '+' : ''}$${pnl.toFixed(2)}`;
+                pnlEl.style.color = pnl >= 0 ? 'var(--success)' : 'var(--danger)';
+
+                document.getElementById('val-pf').innerText = pf.toFixed(2);
+                document.getElementById('val-trades-count').innerText = 
+                    `${data.total_trades || 0} Ops (${data.ganadas || 0}W / ${data.perdidas || 0}L / ${data.empates || 0}D)`;
+
+                // Actualizar barra de equilibrio
+                const gauge = document.getElementById('gauge-progress');
+                const clampedWr = Math.max(0, Math.min(100, wr));
+                gauge.style.width = `${clampedWr}%`;
+                gauge.style.background = wr >= be 
+                    ? 'linear-gradient(90deg, #10b981, #06b6d4)' 
+                    : 'linear-gradient(90deg, #ef4444, #f59e0b)';
+
+                const verdictBadge = document.getElementById('badge-edge-verdict');
+                if (wr >= be) {
+                    verdictBadge.className = 'tag tag-win';
+                    verdictBadge.innerText = `RENTABLE (+${(wr - be).toFixed(1)}% EDGE)`;
+                } else {
+                    verdictBadge.className = 'tag tag-loss';
+                    verdictBadge.innerText = `DÉFICIT (${(wr - be).toFixed(1)}% VS BE)`;
+                }
+
+                // Cargar tabla de operaciones
+                await fetchRecentTrades();
+
+            } catch (err) {
+                console.error("Error consultando métricas:", err);
+            }
+        }
+
+        async function fetchRecentTrades() {
+            try {
+                const res = await fetch('/trades?limit=25');
+                if (!res.ok) return;
+                const trades = await res.json();
+
+                const tbody = document.getElementById('trades-tbody');
+                if (!trades || trades.length === 0) {
+                    tbody.innerHTML = `<tr><td colspan="10" style="text-align: center; color: var(--text-dim); padding: 24px;">No hay operaciones registradas aún.</td></tr>`;
+                    return;
+                }
+
+                document.getElementById('table-total-info').innerText = `Mostrando ${trades.length} operaciones`;
+
+                let html = '';
+                for (const t of trades) {
+                    const isCall = (t.direction || '').toUpperCase() === 'CALL';
+                    const isWin = t.outcome === 'GANADA';
+                    const isTie = t.outcome === 'EMPATE';
+                    
+                    const tagDir = isCall ? '<span class="tag tag-call">CALL</span>' : '<span class="tag tag-put">PUT</span>';
+                    const tagOut = isWin 
+                        ? '<span class="tag tag-win">GANADA</span>' 
+                        : (isTie ? '<span class="tag tag-tie">EMPATE</span>' : '<span class="tag tag-loss">PERDIDA</span>');
+
+                    const pnlSign = t.net_profit >= 0 ? `+$${t.net_profit.toFixed(2)}` : `-$${Math.abs(t.net_profit).toFixed(2)}`;
+                    const pnlColor = t.net_profit >= 0 ? 'var(--success)' : 'var(--danger)';
+
+                    const rsiVal = t.rsi !== undefined && t.rsi !== null ? Number(t.rsi).toFixed(1) : '-';
+                    const bbVal = t.bollinger_bandwidth !== undefined && t.bollinger_bandwidth !== null ? `${Number(t.bollinger_bandwidth).toFixed(2)}%` : '-';
+                    const score = t.score_call !== undefined && isCall ? `${t.score_call}/100` : (t.score_put !== undefined ? `${t.score_put}/100` : '-');
+
+                    html += `
+                    <tr>
+                        <td>${t.date_time || '-'}</td>
+                        <td>#${t.order_id || t.id}</td>
+                        <td>${tagDir}</td>
+                        <td>$${(t.amount || 10).toFixed(2)}</td>
+                        <td>${(t.entry_price || 0).toFixed(5)} ──▶ ${(t.exit_price || 0).toFixed(5)}</td>
+                        <td>${tagOut}</td>
+                        <td style="color: ${pnlColor}; font-weight: 700;">${pnlSign}</td>
+                        <td>${rsiVal}</td>
+                        <td>${bbVal}</td>
+                        <td>${score}</td>
+                    </tr>
+                    `;
+                }
+                tbody.innerHTML = html;
+
+            } catch (err) {
+                console.error("Error cargando tabla de trades:", err);
+            }
+        }
+
+        // Polling automático cada 3 segundos
+        fetchMetrics();
+        setInterval(fetchMetrics, 3000);
+    </script>
+</body>
+</html>

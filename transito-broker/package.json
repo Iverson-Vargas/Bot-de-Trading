@@ -1,0 +1,24 @@
+{
+  "name": "transito-broker",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "start": "node transit.js",
+    "start:dev": "node --watch transit.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "version": "^11.21.0",
+      "onFail": "download"
+    }
+  },
+  "type": "module",
+  "dependencies": {
+    "ws": "^8.21.3"
+  }
+}

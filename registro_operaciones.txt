@@ -1,0 +1,1296 @@
+
+══════════════════════════════════════════════════════════════════════════════════
+📊 INICIO DE SESIÓN DE TRADING - BOT IQ OPTION
+📅 Fecha y Hora de Inicio: 2026-08-14 19:01:00
+🎯 Par Operado: EUR/USD Blitz (ID: 76) | ⏱️ Expiración: 60s
+💰 Balance Inicial: $10000.00 USD (ID Balance: 1247876399)
+📈 Payout Configurado: 82%
+══════════════════════════════════════════════════════════════════════════════════
+
+══════════════════════════════════════════════════════════════════════════════════
+📊 INICIO DE SESIÓN DE TRADING - BOT IQ OPTION
+📅 Fecha y Hora de Inicio: 2026-08-14 19:10:48
+🎯 Par Operado: EUR/USD Blitz (ID: 76) | ⏱️ Expiración: 60s
+💼 Tipo de Cuenta: PRÁCTICA / DEMO (ID Balance: 1247876399)
+💰 Balance Inicial Real en Broker: $10000.00 USD
+📈 Payout Configurado: 82%
+══════════════════════════════════════════════════════════════════════════════════
+
+══════════════════════════════════════════════════════════════════════════════════
+📊 INICIO DE SESIÓN DE TRADING - BOT IQ OPTION
+📅 Fecha y Hora de Inicio: 2026-08-14 19:11:13
+🎯 Par Operado: EUR/USD Blitz (ID: 76) | ⏱️ Expiración: 60s
+💼 Tipo de Cuenta: REAL (DINERO REAL) (ID Balance: 1247876398)
+💰 Balance Inicial Real en Broker: $0.64 USD
+📈 Payout Configurado: 82%
+══════════════════════════════════════════════════════════════════════════════════
+
+══════════════════════════════════════════════════════════════════════════════════
+📊 INICIO DE SESIÓN DE TRADING - BOT IQ OPTION
+📅 Fecha y Hora de Inicio: 2026-08-14 19:12:01
+🎯 Par Operado: EUR/USD Blitz (ID: 76) | ⏱️ Expiración: 60s
+💼 Tipo de Cuenta: PRÁCTICA / DEMO (ID Balance: 1247876399)
+💰 Balance Inicial Real en Broker: $9045.80 USD
+📈 Payout Configurado: 82%
+══════════════════════════════════════════════════════════════════════════════════
+
+══════════════════════════════════════════════════════════════════════════════════
+📊 INICIO DE SESIÓN DE TRADING - BOT IQ OPTION
+📅 Fecha y Hora de Inicio: 2026-08-14 19:19:55
+🎯 Par Operado: EUR/USD Blitz (ID: 76) | ⏱️ Expiración: 60s
+💼 Tipo de Cuenta: PRÁCTICA / DEMO (ID Balance: 1247876399)
+💰 Balance Inicial Real en Broker: $9045.80 USD
+📈 Payout Configurado: 82%
+══════════════════════════════════════════════════════════════════════════════════
+
+----------------------------------------------------------------------------------
+[19:21:24] ORDEN #1 - RESULTADO: PERDIDA (-$10.00 USD)
+• Cuenta: ACTIVA (ID: 14166855511)
+• Dirección: PUT (VENTA / BAJA)
+• Monto Invertido: $10.00 USD
+• Precio Entrada: 1.15372  ──▶  Precio Salida: 1.15427
+• Horario: 19:20:23 a 19:21:24 (60s)
+• Saldo Real Cuenta Post-Operación: $9035.80 USD
+• Rendimiento Neto Sesión: -$10.00 USD | Marcador: 0W - 1L - 0D
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+[19:22:32] ORDEN #2 - RESULTADO: GANADA (+$8.20 USD)
+• Cuenta: ACTIVA (ID: 14166855511)
+• Dirección: PUT (VENTA / BAJA)
+• Monto Invertido: $10.00 USD
+• Precio Entrada: 1.15443  ──▶  Precio Salida: 1.15377
+• Horario: 19:21:31 a 19:22:32 (60s)
+• Saldo Real Cuenta Post-Operación: $9044.00 USD
+• Rendimiento Neto Sesión: -$1.80 USD | Marcador: 1W - 1L - 0D
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+[19:23:41] ORDEN #3 - RESULTADO: PERDIDA (-$10.00 USD)
+• Cuenta: ACTIVA (ID: 14166855511)
+• Dirección: PUT (VENTA / BAJA)
+• Monto Invertido: $10.00 USD
+• Precio Entrada: 1.15386  ──▶  Precio Salida: 1.15458
+• Horario: 19:22:40 a 19:23:41 (60s)
+• Saldo Real Cuenta Post-Operación: $9034.00 USD
+• Rendimiento Neto Sesión: -$11.80 USD | Marcador: 1W - 2L - 0D
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+[19:25:56] ORDEN #4 - RESULTADO: PERDIDA (-$10.00 USD)
+• Cuenta: ACTIVA (ID: 14166855511)
+• Dirección: PUT (VENTA / BAJA)
+• Monto Invertido: $10.00 USD
+• Precio Entrada: 1.15539  ──▶  Precio Salida: 1.15569
+• Horario: 19:24:55 a 19:25:56 (60s)
+• Saldo Real Cuenta Post-Operación: $9024.00 USD
+• Rendimiento Neto Sesión: -$21.80 USD | Marcador: 1W - 3L - 0D
+----------------------------------------------------------------------------------
+══════════════════════════════════════════════════════════════════════════════════
+🏁 RESUMEN FINAL DE LA SESIÓN DE TRADING
+📅 Fecha y Hora de Cierre: 2026-08-14 19:28:01
+💼 Cuenta Operada: ACTIVA (ID: 14166855511)
+⏳ Duración de la Sesión: 8.1 minutos
+----------------------------------------------------------------------------------
+📈 Balance Inicial Real en Broker: $9045.80 USD
+📉 Balance Final Real en Broker:   $9024.00 USD
+💰 Beneficio / Pérdida Neta:       -$21.80 USD (-0.24%)
+🎯 Total de Operaciones:           4
+🏆 Desglose de Resultados:         1 Ganadas | 3 Perdidas | 0 Empates
+📊 Tasa de Acierto (Win Rate):     25.0%
+══════════════════════════════════════════════════════════════════════════════════
+
+
+══════════════════════════════════════════════════════════════════════════════════
+📊 INICIO DE SESIÓN DE TRADING - BOT IQ OPTION
+📅 Fecha y Hora de Inicio: 2026-08-14 19:33:05
+🎯 Par Operado: EUR/USD Blitz (ID: 76) | ⏱️ Expiración: 60s
+💼 Tipo de Cuenta: PRÁCTICA / DEMO (ID Balance: 1247876399)
+💰 Balance Inicial Real en Broker: $9035.80 USD
+📈 Payout Configurado: 82%
+══════════════════════════════════════════════════════════════════════════════════
+
+----------------------------------------------------------------------------------
+[19:34:14] ORDEN #1 - RESULTADO: GANADA (+$8.20 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: PUT (VENTA / BAJA)
+• Monto Invertido: $10.00 USD
+• Precio Entrada: 1.15756  ──▶  Precio Salida: 1.15721
+• Horario: 19:33:13 a 19:34:14 (60s)
+• Saldo Real Cuenta Post-Operación: $9044.00 USD
+• Rendimiento Neto Sesión: +$8.20 USD | Marcador: 1W - 0L - 0D
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+[19:35:34] ORDEN #2 - RESULTADO: GANADA (+$8.20 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: CALL (COMPRA / ALZA)
+• Monto Invertido: $10.00 USD
+• Precio Entrada: 1.15704  ──▶  Precio Salida: 1.15711
+• Horario: 19:34:33 a 19:35:34 (60s)
+• Saldo Real Cuenta Post-Operación: $9052.20 USD
+• Rendimiento Neto Sesión: +$16.40 USD | Marcador: 2W - 0L - 0D
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+[19:36:53] ORDEN #3 - RESULTADO: PERDIDA (-$10.00 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: PUT (VENTA / BAJA)
+• Monto Invertido: $10.00 USD
+• Precio Entrada: 1.15739  ──▶  Precio Salida: 1.15741
+• Horario: 19:35:52 a 19:36:53 (60s)
+• Saldo Real Cuenta Post-Operación: $9042.20 USD
+• Rendimiento Neto Sesión: +$6.40 USD | Marcador: 2W - 1L - 0D
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+[19:38:09] ORDEN #4 - RESULTADO: PERDIDA (-$10.00 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: CALL (COMPRA / ALZA)
+• Monto Invertido: $10.00 USD
+• Precio Entrada: 1.15735  ──▶  Precio Salida: 1.15708
+• Horario: 19:37:08 a 19:38:09 (60s)
+• Saldo Real Cuenta Post-Operación: $9032.20 USD
+• Rendimiento Neto Sesión: -$3.60 USD | Marcador: 2W - 2L - 0D
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+[19:40:41] ORDEN #5 - RESULTADO: GANADA (+$8.20 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: CALL (COMPRA / ALZA)
+• Monto Invertido: $10.00 USD
+• Precio Entrada: 1.15725  ──▶  Precio Salida: 1.15736
+• Horario: 19:39:40 a 19:40:41 (60s)
+• Saldo Real Cuenta Post-Operación: $9040.40 USD
+• Rendimiento Neto Sesión: +$4.60 USD | Marcador: 3W - 2L - 0D
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+[19:41:53] ORDEN #6 - RESULTADO: PERDIDA (-$10.00 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: CALL (COMPRA / ALZA)
+• Monto Invertido: $10.00 USD
+• Precio Entrada: 1.15743  ──▶  Precio Salida: 1.15664
+• Horario: 19:40:52 a 19:41:53 (60s)
+• Saldo Real Cuenta Post-Operación: $9030.40 USD
+• Rendimiento Neto Sesión: -$5.40 USD | Marcador: 3W - 3L - 0D
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+[19:43:54] ORDEN #7 - RESULTADO: GANADA (+$8.20 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: PUT (VENTA / BAJA)
+• Monto Invertido: $10.00 USD
+• Precio Entrada: 1.15660  ──▶  Precio Salida: 1.15651
+• Horario: 19:42:41 a 19:43:54 (60s)
+• Saldo Real Cuenta Post-Operación: $9038.60 USD
+• Rendimiento Neto Sesión: +$2.80 USD | Marcador: 4W - 3L - 0D
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+[19:44:57] ORDEN #8 - RESULTADO: PERDIDA (-$10.00 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: CALL (COMPRA / ALZA)
+• Monto Invertido: $10.00 USD
+• Precio Entrada: 1.15640  ──▶  Precio Salida: 1.15593
+• Horario: 19:43:56 a 19:44:57 (60s)
+• Saldo Real Cuenta Post-Operación: $9028.60 USD
+• Rendimiento Neto Sesión: -$7.20 USD | Marcador: 4W - 4L - 0D
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+[19:46:02] ORDEN #9 - RESULTADO: PERDIDA (-$10.00 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: CALL (COMPRA / ALZA)
+• Monto Invertido: $10.00 USD
+• Precio Entrada: 1.15572  ──▶  Precio Salida: 1.15553
+• Horario: 19:45:01 a 19:46:02 (60s)
+• Saldo Real Cuenta Post-Operación: $9018.60 USD
+• Rendimiento Neto Sesión: -$17.20 USD | Marcador: 4W - 5L - 0D
+----------------------------------------------------------------------------------
+══════════════════════════════════════════════════════════════════════════════════
+🏁 RESUMEN FINAL DE LA SESIÓN DE TRADING
+📅 Fecha y Hora de Cierre: 2026-08-14 19:46:09
+💼 Cuenta Operada: PRÁCTICA / DEMO (ID: 1247876399)
+⏳ Duración de la Sesión: 13.1 minutos
+----------------------------------------------------------------------------------
+📈 Balance Inicial Real en Broker: $9035.80 USD
+📉 Balance Final Real en Broker:   $9018.60 USD
+💰 Beneficio / Pérdida Neta:       -$17.20 USD (-0.19%)
+🎯 Total de Operaciones:           9
+🏆 Desglose de Resultados:         4 Ganadas | 5 Perdidas | 0 Empates
+📊 Tasa de Acierto (Win Rate):     44.4%
+══════════════════════════════════════════════════════════════════════════════════
+
+
+══════════════════════════════════════════════════════════════════════════════════
+📊 INICIO DE SESIÓN DE TRADING - BOT IQ OPTION
+📅 Fecha y Hora de Inicio: 2026-08-14 19:49:15
+🎯 Par Operado: EUR/USD Blitz (ID: 76) | ⏱️ Expiración: 60s
+💼 Tipo de Cuenta: PRÁCTICA / DEMO (ID Balance: 1247876399)
+💰 Balance Inicial Real en Broker: $9018.60 USD
+📈 Payout Configurado: 82%
+══════════════════════════════════════════════════════════════════════════════════
+
+----------------------------------------------------------------------------------
+[19:50:29] ORDEN #1 - RESULTADO: PERDIDA (-$10.00 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: PUT (VENTA / BAJA)
+• Monto Invertido: $10.00 USD
+• Precio Entrada: 1.15488  ──▶  Precio Salida: 1.15518
+• Horario: 19:49:28 a 19:50:29 (60s)
+• Saldo Real Cuenta Post-Operación: $9008.60 USD
+• Rendimiento Neto Sesión: -$10.00 USD | Marcador: 0W - 1L - 0D
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+[19:51:42] ORDEN #2 - RESULTADO: PERDIDA (-$10.00 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: PUT (VENTA / BAJA)
+• Monto Invertido: $10.00 USD
+• Precio Entrada: 1.15528  ──▶  Precio Salida: 1.15534
+• Horario: 19:50:41 a 19:51:42 (60s)
+• Saldo Real Cuenta Post-Operación: $8998.60 USD
+• Rendimiento Neto Sesión: -$20.00 USD | Marcador: 0W - 2L - 0D
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+[19:54:42] ORDEN #3 - RESULTADO: GANADA (+$8.20 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: CALL (COMPRA / ALZA)
+• Monto Invertido: $10.00 USD
+• Precio Entrada: 1.15470  ──▶  Precio Salida: 1.15521
+• Horario: 19:53:41 a 19:54:42 (60s)
+• Saldo Real Cuenta Post-Operación: $9006.80 USD
+• Rendimiento Neto Sesión: -$11.80 USD | Marcador: 1W - 2L - 0D
+----------------------------------------------------------------------------------
+══════════════════════════════════════════════════════════════════════════════════
+🏁 RESUMEN FINAL DE LA SESIÓN DE TRADING
+📅 Fecha y Hora de Cierre: 2026-08-14 19:55:04
+💼 Cuenta Operada: PRÁCTICA / DEMO (ID: 1247876399)
+⏳ Duración de la Sesión: 5.8 minutos
+----------------------------------------------------------------------------------
+📈 Balance Inicial Real en Broker: $9018.60 USD
+📉 Balance Final Real en Broker:   $NaN USD
+💰 Beneficio / Pérdida Neta:       -$11.80 USD (-0.13%)
+🎯 Total de Operaciones:           3
+🏆 Desglose de Resultados:         1 Ganadas | 2 Perdidas | 0 Empates
+📊 Tasa de Acierto (Win Rate):     33.3%
+══════════════════════════════════════════════════════════════════════════════════
+
+
+══════════════════════════════════════════════════════════════════════════════════
+📊 INICIO DE SESIÓN DE TRADING - BOT IQ OPTION
+📅 Fecha y Hora de Inicio: 2026-08-15 20:02:49
+🎯 Par Operado: EUR/USD Blitz (ID: 76) | ⏱️ Expiración: 60s
+💼 Tipo de Cuenta: PRÁCTICA / DEMO (ID Balance: 1247876399)
+💰 Balance Inicial Real en Broker: $9015.00 USD
+📈 Payout Configurado: 82%
+══════════════════════════════════════════════════════════════════════════════════
+
+----------------------------------------------------------------------------------
+[20:03:49] ORDEN #1 - RESULTADO: PERDIDA (-$10.00 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: CALL (COMPRA / ALZA)
+• Monto Invertido: $10.00 USD
+• Precio Entrada: 1.153025  ──▶  Precio Salida: 1.153015
+
+• Horario: 20:02:49 a 20:03:49 (60s)
+• Saldo Real Cuenta Post-Operación: $9005.00 USD
+• Rendimiento Neto Sesión: -$10.00 USD | Marcador: 0W - 1L - 0D
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+[20:04:54] ORDEN #2 - RESULTADO: GANADA (+$8.20 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: PUT (VENTA / BAJA)
+• Monto Invertido: $10.00 USD
+• Precio Entrada: 1.153065  ──▶  Precio Salida: 1.152995
+
+• Horario: 20:03:54 a 20:04:54 (60s)
+• Saldo Real Cuenta Post-Operación: $9013.20 USD
+• Rendimiento Neto Sesión: -$1.80 USD | Marcador: 1W - 1L - 0D
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+[20:06:03] ORDEN #3 - RESULTADO: PERDIDA (-$10.00 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: CALL (COMPRA / ALZA)
+• Monto Invertido: $10.00 USD
+• Precio Entrada: 1.153005  ──▶  Precio Salida: 1.152265
+
+• Horario: 20:05:03 a 20:06:03 (60s)
+• Saldo Real Cuenta Post-Operación: $9003.20 USD
+• Rendimiento Neto Sesión: -$11.80 USD | Marcador: 1W - 2L - 0D
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+[20:07:10] ORDEN #4 - RESULTADO: PERDIDA (-$10.00 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: CALL (COMPRA / ALZA)
+• Monto Invertido: $10.00 USD
+• Precio Entrada: 1.152175  ──▶  Precio Salida: 1.151855
+
+• Horario: 20:06:10 a 20:07:10 (60s)
+• Saldo Real Cuenta Post-Operación: $8993.20 USD
+• Rendimiento Neto Sesión: -$21.80 USD | Marcador: 1W - 3L - 0D
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+[20:09:17] ORDEN #5 - RESULTADO: GANADA (+$8.20 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: CALL (COMPRA / ALZA)
+• Monto Invertido: $10.00 USD
+• Precio Entrada: 1.151615  ──▶  Precio Salida: 1.151725
+
+• Horario: 20:08:17 a 20:09:17 (60s)
+• Saldo Real Cuenta Post-Operación: $9001.40 USD
+• Rendimiento Neto Sesión: -$13.60 USD | Marcador: 2W - 3L - 0D
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+[20:10:19] ORDEN #6 - RESULTADO: PERDIDA (-$10.00 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: PUT (VENTA / BAJA)
+• Monto Invertido: $10.00 USD
+• Precio Entrada: 1.151865  ──▶  Precio Salida: 1.152585
+
+• Horario: 20:09:19 a 20:10:19 (60s)
+• Saldo Real Cuenta Post-Operación: $8991.40 USD
+• Rendimiento Neto Sesión: -$23.60 USD | Marcador: 2W - 4L - 0D
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+[20:11:26] ORDEN #7 - RESULTADO: PERDIDA (-$10.00 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: CALL (COMPRA / ALZA)
+• Monto Invertido: $10.00 USD
+• Precio Entrada: 1.152325  ──▶  Precio Salida: 1.152115
+
+• Horario: 20:10:26 a 20:11:26 (60s)
+• Saldo Real Cuenta Post-Operación: $8981.40 USD
+• Rendimiento Neto Sesión: -$33.60 USD | Marcador: 2W - 5L - 0D
+----------------------------------------------------------------------------------
+══════════════════════════════════════════════════════════════════════════════════
+📊 INICIO DE SESIÓN DE TRADING - BOT IQ OPTION
+📅 Fecha y Hora de Inicio: 2026-08-15 20:14:25
+🎯 Par Operado: EUR/USD Blitz (ID: 76) | ⏱️ Expiración: 60s
+💼 Tipo de Cuenta: PRÁCTICA / DEMO (ID Balance: 1247876399)
+💰 Balance Inicial Real en Broker: $8981.40 USD
+📈 Payout Configurado: 82%
+══════════════════════════════════════════════════════════════════════════════════
+
+----------------------------------------------------------------------------------
+[20:16:18] ORDEN #1 - RESULTADO: GANADA (+$8.20 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: CALL (COMPRA / ALZA)
+• Monto Invertido: $10.00 USD
+• Precio Entrada: 1.151615  ──▶  Precio Salida: 1.151955
+
+• Horario: 20:15:18 a 20:16:18 (60s)
+• Saldo Real Cuenta Post-Operación: $8989.60 USD
+• Rendimiento Neto Sesión: +$8.20 USD | Marcador: 1W - 0L - 0D
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+[20:17:35] ORDEN #2 - RESULTADO: GANADA (+$8.20 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: CALL (COMPRA / ALZA)
+• Monto Invertido: $10.00 USD
+• Precio Entrada: 1.151745  ──▶  Precio Salida: 1.151915
+
+• Horario: 20:16:35 a 20:17:35 (60s)
+• Saldo Real Cuenta Post-Operación: $8997.80 USD
+• Rendimiento Neto Sesión: +$16.40 USD | Marcador: 2W - 0L - 0D
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+[20:19:00] ORDEN #3 - RESULTADO: GANADA (+$8.20 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: PUT (VENTA / BAJA)
+• Monto Invertido: $10.00 USD
+• Precio Entrada: 1.152255  ──▶  Precio Salida: 1.151875
+
+• Horario: 20:18:00 a 20:19:00 (60s)
+• Saldo Real Cuenta Post-Operación: $9006.00 USD
+• Rendimiento Neto Sesión: +$24.60 USD | Marcador: 3W - 0L - 0D
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+[20:21:27] ORDEN #4 - RESULTADO: PERDIDA (-$10.00 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: CALL (COMPRA / ALZA)
+• Monto Invertido: $10.00 USD
+• Precio Entrada: 1.152555  ──▶  Precio Salida: 1.152465
+
+• Horario: 20:20:27 a 20:21:27 (60s)
+• Saldo Real Cuenta Post-Operación: $8996.00 USD
+• Rendimiento Neto Sesión: +$14.60 USD | Marcador: 3W - 1L - 0D
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+[20:23:38] ORDEN #5 - RESULTADO: GANADA (+$8.20 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: PUT (VENTA / BAJA)
+• Monto Invertido: $10.00 USD
+• Precio Entrada: 1.152815  ──▶  Precio Salida: 1.152535
+
+• Horario: 20:22:38 a 20:23:38 (60s)
+• Saldo Real Cuenta Post-Operación: $9004.20 USD
+• Rendimiento Neto Sesión: +$22.80 USD | Marcador: 4W - 1L - 0D
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+[20:25:39] ORDEN #6 - RESULTADO: PERDIDA (-$10.00 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: PUT (VENTA / BAJA)
+• Monto Invertido: $10.00 USD
+• Precio Entrada: 1.152195  ──▶  Precio Salida: 1.152365
+
+• Horario: 20:24:39 a 20:25:39 (60s)
+• Saldo Real Cuenta Post-Operación: $8994.20 USD
+• Rendimiento Neto Sesión: +$12.80 USD | Marcador: 4W - 2L - 0D
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+[20:28:56] ORDEN #7 - RESULTADO: GANADA (+$8.20 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: PUT (VENTA / BAJA)
+• Monto Invertido: $10.00 USD
+• Precio Entrada: 1.151655  ──▶  Precio Salida: 1.151015
+
+• Horario: 20:27:56 a 20:28:56 (60s)
+• Saldo Real Cuenta Post-Operación: $9002.40 USD
+• Rendimiento Neto Sesión: +$21.00 USD | Marcador: 5W - 2L - 0D
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+[20:30:04] ORDEN #8 - RESULTADO: PERDIDA (-$10.00 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: PUT (VENTA / BAJA)
+• Monto Invertido: $10.00 USD
+• Precio Entrada: 1.151165  ──▶  Precio Salida: 1.152145
+
+• Horario: 20:29:04 a 20:30:04 (60s)
+• Saldo Real Cuenta Post-Operación: $8992.40 USD
+• Rendimiento Neto Sesión: +$11.00 USD | Marcador: 5W - 3L - 0D
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+[20:31:22] ORDEN #9 - RESULTADO: PERDIDA (-$10.00 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: CALL (COMPRA / ALZA)
+• Monto Invertido: $10.00 USD
+• Precio Entrada: 1.152165  ──▶  Precio Salida: 1.151405
+
+• Horario: 20:30:22 a 20:31:22 (60s)
+• Saldo Real Cuenta Post-Operación: $8982.40 USD
+• Rendimiento Neto Sesión: +$1.00 USD | Marcador: 5W - 4L - 0D
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+[20:35:28] ORDEN #10 - RESULTADO: GANADA (+$8.20 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: CALL (COMPRA / ALZA)
+• Monto Invertido: $10.00 USD
+• Precio Entrada: 1.150935  ──▶  Precio Salida: 1.151755
+
+• Horario: 20:34:28 a 20:35:28 (60s)
+• Saldo Real Cuenta Post-Operación: $8990.60 USD
+• Rendimiento Neto Sesión: +$9.20 USD | Marcador: 6W - 4L - 0D
+----------------------------------------------------------------------------------
+══════════════════════════════════════════════════════════════════════════════════
+🏁 RESUMEN FINAL DE LA SESIÓN DE TRADING
+📅 Fecha y Hora de Cierre: 2026-08-15 20:35:31
+💼 Cuenta Operada: PRÁCTICA / DEMO (ID: 1247876399)
+⏳ Duración de la Sesión: 21.1 minutos
+----------------------------------------------------------------------------------
+📈 Balance Inicial Real en Broker: $8981.40 USD
+📉 Balance Final Real en Broker:   $NaN USD
+💰 Beneficio / Pérdida Neta:       +$9.20 USD (0.10%)
+🎯 Total de Operaciones:           10
+🏆 Desglose de Resultados:         6 Ganadas | 4 Perdidas | 0 Empates
+📊 Tasa de Acierto (Win Rate):     60.0%
+══════════════════════════════════════════════════════════════════════════════════
+
+
+══════════════════════════════════════════════════════════════════════════════════
+📊 INICIO DE SESIÓN DE TRADING - BOT IQ OPTION
+📅 Fecha y Hora de Inicio: 2026-08-15 20:40:54
+🎯 Par Operado: EUR/USD Blitz (ID: 76) | ⏱️ Expiración: 60s
+💼 Tipo de Cuenta: PRÁCTICA / DEMO (ID Balance: 1247876399)
+💰 Balance Inicial Real en Broker: $8990.60 USD
+📈 Payout Configurado: 82%
+══════════════════════════════════════════════════════════════════════════════════
+
+----------------------------------------------------------------------------------
+[20:43:40] ORDEN #1 - RESULTADO: GANADA (+$8.20 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: CALL (COMPRA / ALZA)
+• Monto Invertido: $10.00 USD
+• Precio Entrada: 1.152795  ──▶  Precio Salida: 1.152835
+
+• Horario: 20:42:39 a 20:43:40 (60s)
+• Saldo Real Cuenta Post-Operación: $8998.80 USD
+• Rendimiento Neto Sesión: +$8.20 USD | Marcador: 1W - 0L - 0D
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+[20:44:46] ORDEN #2 - RESULTADO: PERDIDA (-$10.00 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: PUT (VENTA / BAJA)
+• Monto Invertido: $10.00 USD
+• Precio Entrada: 1.152905  ──▶  Precio Salida: 1.153075
+
+• Horario: 20:43:45 a 20:44:46 (60s)
+• Saldo Real Cuenta Post-Operación: $8988.80 USD
+• Rendimiento Neto Sesión: -$1.80 USD | Marcador: 1W - 1L - 0D
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+[20:49:06] ORDEN #3 - RESULTADO: GANADA (+$8.20 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: CALL (COMPRA / ALZA)
+• Monto Invertido: $10.00 USD
+• Precio Entrada: 1.154175  ──▶  Precio Salida: 1.154195
+
+• Horario: 20:48:05 a 20:49:06 (60s)
+• Saldo Real Cuenta Post-Operación: $8997.00 USD
+• Rendimiento Neto Sesión: +$6.40 USD | Marcador: 2W - 1L - 0D
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+[20:50:27] ORDEN #4 - RESULTADO: PERDIDA (-$10.00 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: CALL (COMPRA / ALZA)
+• Monto Invertido: $10.00 USD
+• Precio Entrada: 1.154295  ──▶  Precio Salida: 1.154125
+
+• Horario: 20:49:26 a 20:50:27 (60s)
+• Saldo Real Cuenta Post-Operación: $8987.00 USD
+• Rendimiento Neto Sesión: -$3.60 USD | Marcador: 2W - 2L - 0D
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+[20:53:36] ORDEN #5 - RESULTADO: GANADA (+$8.20 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: PUT (VENTA / BAJA)
+• Monto Invertido: $10.00 USD
+• Precio Entrada: 1.154285  ──▶  Precio Salida: 1.153905
+
+• Horario: 20:52:35 a 20:53:36 (60s)
+• Saldo Real Cuenta Post-Operación: $8995.20 USD
+• Rendimiento Neto Sesión: +$4.60 USD | Marcador: 3W - 2L - 0D
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+[20:55:43] ORDEN #6 - RESULTADO: GANADA (+$8.20 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: CALL (COMPRA / ALZA)
+• Monto Invertido: $10.00 USD
+• Precio Entrada: 1.153905  ──▶  Precio Salida: 1.154455
+
+• Horario: 20:54:42 a 20:55:43 (60s)
+• Saldo Real Cuenta Post-Operación: $9003.40 USD
+• Rendimiento Neto Sesión: +$12.80 USD | Marcador: 4W - 2L - 0D
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+[20:58:07] ORDEN #7 - RESULTADO: GANADA (+$8.20 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: CALL (COMPRA / ALZA)
+• Monto Invertido: $10.00 USD
+• Precio Entrada: 1.154805  ──▶  Precio Salida: 1.154945
+
+• Horario: 20:57:06 a 20:58:07 (60s)
+• Saldo Real Cuenta Post-Operación: $9011.60 USD
+• Rendimiento Neto Sesión: +$21.00 USD | Marcador: 5W - 2L - 0D
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+[20:59:55] ORDEN #8 - RESULTADO: GANADA (+$8.20 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: PUT (VENTA / BAJA)
+• Monto Invertido: $10.00 USD
+• Precio Entrada: 1.154955  ──▶  Precio Salida: 1.154905
+
+• Horario: 20:58:54 a 20:59:55 (60s)
+• Saldo Real Cuenta Post-Operación: $9019.80 USD
+• Rendimiento Neto Sesión: +$29.20 USD | Marcador: 6W - 2L - 0D
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+[21:01:05] ORDEN #9 - RESULTADO: PERDIDA (-$10.00 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: CALL (COMPRA / ALZA)
+• Monto Invertido: $10.00 USD
+• Precio Entrada: 1.154715  ──▶  Precio Salida: 1.154605
+
+• Horario: 21:00:04 a 21:01:05 (60s)
+• Saldo Real Cuenta Post-Operación: $9009.80 USD
+• Rendimiento Neto Sesión: +$19.20 USD | Marcador: 6W - 3L - 0D
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+[21:02:12] ORDEN #10 - RESULTADO: GANADA (+$8.20 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: CALL (COMPRA / ALZA)
+• Monto Invertido: $10.00 USD
+• Precio Entrada: 1.154555  ──▶  Precio Salida: 1.154705
+
+• Horario: 21:01:11 a 21:02:12 (60s)
+• Saldo Real Cuenta Post-Operación: $9018.00 USD
+• Rendimiento Neto Sesión: +$27.40 USD | Marcador: 7W - 3L - 0D
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+[21:03:45] ORDEN #11 - RESULTADO: PERDIDA (-$10.00 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: CALL (COMPRA / ALZA)
+• Monto Invertido: $10.00 USD
+• Precio Entrada: 1.154515  ──▶  Precio Salida: 1.153855
+
+• Horario: 21:02:44 a 21:03:45 (60s)
+• Saldo Real Cuenta Post-Operación: $9008.00 USD
+• Rendimiento Neto Sesión: +$17.40 USD | Marcador: 7W - 4L - 0D
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+[21:06:11] ORDEN #12 - RESULTADO: PERDIDA (-$10.00 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: CALL (COMPRA / ALZA)
+• Monto Invertido: $10.00 USD
+• Precio Entrada: 1.153285  ──▶  Precio Salida: 1.152845
+
+• Horario: 21:05:10 a 21:06:11 (60s)
+• Saldo Real Cuenta Post-Operación: $8998.00 USD
+• Rendimiento Neto Sesión: +$7.40 USD | Marcador: 7W - 5L - 0D
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+[21:10:13] ORDEN #13 - RESULTADO: GANADA (+$8.20 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: CALL (COMPRA / ALZA)
+• Monto Invertido: $10.00 USD
+• Precio Entrada: 1.153115  ──▶  Precio Salida: 1.153475
+
+• Horario: 21:09:12 a 21:10:13 (60s)
+• Saldo Real Cuenta Post-Operación: $9006.20 USD
+• Rendimiento Neto Sesión: +$15.60 USD | Marcador: 8W - 5L - 0D
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+[21:13:36] ORDEN #14 - RESULTADO: GANADA (+$8.20 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: CALL (COMPRA / ALZA)
+• Monto Invertido: $10.00 USD
+• Precio Entrada: 1.152655  ──▶  Precio Salida: 1.153525
+
+• Horario: 21:12:35 a 21:13:36 (60s)
+• Saldo Real Cuenta Post-Operación: $9014.40 USD
+• Rendimiento Neto Sesión: +$23.80 USD | Marcador: 9W - 5L - 0D
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+[21:15:11] ORDEN #15 - RESULTADO: PERDIDA (-$10.00 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: CALL (COMPRA / ALZA)
+• Monto Invertido: $10.00 USD
+• Precio Entrada: 1.153335  ──▶  Precio Salida: 1.153255
+
+• Horario: 21:14:10 a 21:15:11 (60s)
+• Saldo Real Cuenta Post-Operación: $9004.40 USD
+• Rendimiento Neto Sesión: +$13.80 USD | Marcador: 9W - 6L - 0D
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+[21:17:24] ORDEN #16 - RESULTADO: PERDIDA (-$10.00 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: PUT (VENTA / BAJA)
+• Monto Invertido: $10.00 USD
+• Precio Entrada: 1.153045  ──▶  Precio Salida: 1.153335
+
+• Horario: 21:16:23 a 21:17:24 (60s)
+• Saldo Real Cuenta Post-Operación: $8994.40 USD
+• Rendimiento Neto Sesión: +$3.80 USD | Marcador: 9W - 7L - 0D
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+[21:20:35] ORDEN #17 - RESULTADO: PERDIDA (-$10.00 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: CALL (COMPRA / ALZA)
+• Monto Invertido: $10.00 USD
+• Precio Entrada: 1.153345  ──▶  Precio Salida: 1.153315
+
+• Horario: 21:19:34 a 21:20:35 (60s)
+• Saldo Real Cuenta Post-Operación: $8984.40 USD
+• Rendimiento Neto Sesión: -$6.20 USD | Marcador: 9W - 8L - 0D
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+[21:24:48] ORDEN #18 - RESULTADO: GANADA (+$8.20 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: PUT (VENTA / BAJA)
+• Monto Invertido: $10.00 USD
+• Precio Entrada: 1.153165  ──▶  Precio Salida: 1.152605
+
+• Horario: 21:23:47 a 21:24:48 (60s)
+• Saldo Real Cuenta Post-Operación: $8992.60 USD
+• Rendimiento Neto Sesión: +$2.00 USD | Marcador: 10W - 8L - 0D
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+[21:25:54] ORDEN #19 - RESULTADO: PERDIDA (-$10.00 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: CALL (COMPRA / ALZA)
+• Monto Invertido: $10.00 USD
+• Precio Entrada: 1.152485  ──▶  Precio Salida: 1.152325
+
+• Horario: 21:24:53 a 21:25:54 (60s)
+• Saldo Real Cuenta Post-Operación: $8982.60 USD
+• Rendimiento Neto Sesión: -$8.00 USD | Marcador: 10W - 9L - 0D
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+[21:28:57] ORDEN #20 - RESULTADO: PERDIDA (-$10.00 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: PUT (VENTA / BAJA)
+• Monto Invertido: $10.00 USD
+• Precio Entrada: 1.152845  ──▶  Precio Salida: 1.153625
+
+• Horario: 21:27:56 a 21:28:57 (60s)
+• Saldo Real Cuenta Post-Operación: $8972.60 USD
+• Rendimiento Neto Sesión: -$18.00 USD | Marcador: 10W - 10L - 0D
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+[21:33:59] ORDEN #21 - RESULTADO: PERDIDA (-$10.00 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: PUT (VENTA / BAJA)
+• Monto Invertido: $10.00 USD
+• Precio Entrada: 1.153535  ──▶  Precio Salida: 1.154235
+
+• Horario: 21:32:58 a 21:33:59 (60s)
+• Saldo Real Cuenta Post-Operación: $8962.60 USD
+• Rendimiento Neto Sesión: -$28.00 USD | Marcador: 10W - 11L - 0D
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+[21:36:34] ORDEN #22 - RESULTADO: PERDIDA (-$10.00 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: PUT (VENTA / BAJA)
+• Monto Invertido: $10.00 USD
+• Precio Entrada: 1.154175  ──▶  Precio Salida: 1.155005
+
+• Horario: 21:35:33 a 21:36:34 (60s)
+• Saldo Real Cuenta Post-Operación: $8952.60 USD
+• Rendimiento Neto Sesión: -$38.00 USD | Marcador: 10W - 12L - 0D
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+[21:38:43] ORDEN #23 - RESULTADO: GANADA (+$8.20 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: PUT (VENTA / BAJA)
+• Monto Invertido: $10.00 USD
+• Precio Entrada: 1.155525  ──▶  Precio Salida: 1.155225
+
+• Horario: 21:37:42 a 21:38:43 (60s)
+• Saldo Real Cuenta Post-Operación: $8960.80 USD
+• Rendimiento Neto Sesión: -$29.80 USD | Marcador: 11W - 12L - 0D
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+[21:39:49] ORDEN #24 - RESULTADO: GANADA (+$8.20 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: CALL (COMPRA / ALZA)
+• Monto Invertido: $10.00 USD
+• Precio Entrada: 1.155095  ──▶  Precio Salida: 1.155615
+
+• Horario: 21:38:48 a 21:39:49 (60s)
+• Saldo Real Cuenta Post-Operación: $8969.00 USD
+• Rendimiento Neto Sesión: -$21.60 USD | Marcador: 12W - 12L - 0D
+----------------------------------------------------------------------------------
+══════════════════════════════════════════════════════════════════════════════════
+🏁 RESUMEN FINAL DE LA SESIÓN DE TRADING
+📅 Fecha y Hora de Cierre: 2026-08-15 21:39:51
+💼 Cuenta Operada: PRÁCTICA / DEMO (ID: 1247876399)
+⏳ Duración de la Sesión: 59.0 minutos
+----------------------------------------------------------------------------------
+📈 Balance Inicial Real en Broker: $8990.60 USD
+📉 Balance Final Real en Broker:   $8969.00 USD
+💰 Beneficio / Pérdida Neta:       -$21.60 USD (-0.24%)
+🎯 Total de Operaciones:           24
+🏆 Desglose de Resultados:         12 Ganadas | 12 Perdidas | 0 Empates
+📊 Tasa de Acierto (Win Rate):     50.0%
+══════════════════════════════════════════════════════════════════════════════════
+
+
+══════════════════════════════════════════════════════════════════════════════════
+📊 INICIO DE SESIÓN DE TRADING - BOT IQ OPTION
+📅 Fecha y Hora de Inicio: 2026-08-15 21:47:05
+🎯 Par Operado: EUR/USD Blitz (ID: 76) | ⏱️ Expiración: 60s
+💼 Tipo de Cuenta: PRÁCTICA / DEMO (ID Balance: 1247876399)
+💰 Balance Inicial Real en Broker: $8969.00 USD
+📈 Payout Configurado: 82%
+══════════════════════════════════════════════════════════════════════════════════
+
+----------------------------------------------------------------------------------
+[21:48:18] ORDEN #1 - RESULTADO: EMPATE (+$0.00 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: CALL (COMPRA / ALZA)
+• Monto Invertido: $10.00 USD
+• Precio Entrada: 1.155735  ──▶  Precio Salida: 1.155735
+
+• Horario: 21:47:17 a 21:48:18 (60s)
+• Saldo Real Cuenta Post-Operación: $8969.00 USD
+• Rendimiento Neto Sesión: +$0.00 USD | Marcador: 0W - 0L - 1D
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+[21:49:48] ORDEN #2 - RESULTADO: PERDIDA (-$10.00 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: CALL (COMPRA / ALZA)
+• Monto Invertido: $10.00 USD
+• Precio Entrada: 1.155355  ──▶  Precio Salida: 1.155125
+
+• Horario: 21:48:47 a 21:49:48 (60s)
+• Saldo Real Cuenta Post-Operación: $8959.00 USD
+• Rendimiento Neto Sesión: -$10.00 USD | Marcador: 0W - 1L - 1D
+----------------------------------------------------------------------------------
+══════════════════════════════════════════════════════════════════════════════════
+🏁 RESUMEN FINAL DE LA SESIÓN DE TRADING
+📅 Fecha y Hora de Cierre: 2026-08-15 21:49:51
+💼 Cuenta Operada: PRÁCTICA / DEMO (ID: 1247876399)
+⏳ Duración de la Sesión: 2.8 minutos
+----------------------------------------------------------------------------------
+📈 Balance Inicial Real en Broker: $8969.00 USD
+📉 Balance Final Real en Broker:   $8959.00 USD
+💰 Beneficio / Pérdida Neta:       -$10.00 USD (-0.11%)
+🎯 Total de Operaciones:           2
+🏆 Desglose de Resultados:         0 Ganadas | 1 Perdidas | 1 Empates
+📊 Tasa de Acierto (Win Rate):     0.0%
+══════════════════════════════════════════════════════════════════════════════════
+
+
+══════════════════════════════════════════════════════════════════════════════════
+📊 INICIO DE SESIÓN DE TRADING - BOT IQ OPTION
+📅 Fecha y Hora de Inicio: 2026-08-15 21:57:37
+🎯 Par Operado: EUR/USD Blitz (ID: 76) | ⏱️ Expiración: 60s
+💼 Tipo de Cuenta: PRÁCTICA / DEMO (ID Balance: 1247876399)
+💰 Balance Inicial Real en Broker: $8975.40 USD
+📈 Payout Configurado: 82%
+══════════════════════════════════════════════════════════════════════════════════
+
+----------------------------------------------------------------------------------
+[22:01:40] ORDEN #1 - RESULTADO: EMPATE (+$0.00 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: CALL (COMPRA / ALZA)
+• Monto Invertido: $16.00 USD
+• Precio Entrada: 1.152675  ──▶  Precio Salida: 1.152885
+
+• Horario: 22:00:40 a 22:01:40 (60s)
+• Saldo Real Cuenta Post-Operación: $8975.40 USD
+• Rendimiento Neto Sesión: +$0.00 USD | Marcador: 0W - 0L - 1D
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+[22:11:39] ORDEN #2 - RESULTADO: EMPATE (+$0.00 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: CALL (COMPRA / ALZA)
+• Monto Invertido: $16.00 USD
+• Precio Entrada: 1.152415  ──▶  Precio Salida: 1.152215
+
+• Horario: 22:10:39 a 22:11:39 (60s)
+• Saldo Real Cuenta Post-Operación: $8975.40 USD
+• Rendimiento Neto Sesión: +$0.00 USD | Marcador: 0W - 0L - 2D
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+[22:18:43] ORDEN #3 - RESULTADO: EMPATE (+$0.00 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: CALL (COMPRA / ALZA)
+• Monto Invertido: $16.00 USD
+• Precio Entrada: 1.152695  ──▶  Precio Salida: 1.152515
+
+• Horario: 22:17:43 a 22:18:43 (60s)
+• Saldo Real Cuenta Post-Operación: $8975.40 USD
+• Rendimiento Neto Sesión: +$0.00 USD | Marcador: 0W - 0L - 3D
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+[22:22:47] ORDEN #4 - RESULTADO: EMPATE (+$0.00 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: CALL (COMPRA / ALZA)
+• Monto Invertido: $16.00 USD
+• Precio Entrada: 1.153085  ──▶  Precio Salida: 1.152885
+
+• Horario: 22:21:47 a 22:22:47 (60s)
+• Saldo Real Cuenta Post-Operación: $8975.40 USD
+• Rendimiento Neto Sesión: +$0.00 USD | Marcador: 0W - 0L - 4D
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+[22:26:48] ORDEN #5 - RESULTADO: EMPATE (+$0.00 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: CALL (COMPRA / ALZA)
+• Monto Invertido: $16.00 USD
+• Precio Entrada: 1.152535  ──▶  Precio Salida: 1.152385
+
+• Horario: 22:25:48 a 22:26:48 (60s)
+• Saldo Real Cuenta Post-Operación: $8975.40 USD
+• Rendimiento Neto Sesión: +$0.00 USD | Marcador: 0W - 0L - 5D
+----------------------------------------------------------------------------------
+══════════════════════════════════════════════════════════════════════════════════
+🏁 RESUMEN FINAL DE LA SESIÓN DE TRADING
+📅 Fecha y Hora de Cierre: 2026-08-15 22:27:14
+💼 Cuenta Operada: PRÁCTICA / DEMO (ID: 1247876399)
+⏳ Duración de la Sesión: 29.6 minutos
+----------------------------------------------------------------------------------
+📈 Balance Inicial Real en Broker: $8975.40 USD
+📉 Balance Final Real en Broker:   $8975.40 USD
+💰 Beneficio / Pérdida Neta:       +$0.00 USD (0.00%)
+🎯 Total de Operaciones:           5
+🏆 Desglose de Resultados:         0 Ganadas | 0 Perdidas | 5 Empates
+📊 Tasa de Acierto (Win Rate):     0.0%
+══════════════════════════════════════════════════════════════════════════════════
+
+
+══════════════════════════════════════════════════════════════════════════════════
+📊 INICIO DE SESIÓN DE TRADING - BOT IQ OPTION
+📅 Fecha y Hora de Inicio: 2026-08-15 22:33:45
+🎯 Par Operado: EUR/USD Blitz (ID: 76) | ⏱️ Expiración: 60s
+💼 Tipo de Cuenta: PRÁCTICA / DEMO (ID Balance: 1247876399)
+💰 Balance Inicial Real en Broker: $8924.52 USD
+📈 Payout Configurado: 82%
+══════════════════════════════════════════════════════════════════════════════════
+
+----------------------------------------------------------------------------------
+[22:43:19] ORDEN #1 - RESULTADO: PERDIDA (-$10.00 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: CALL (COMPRA / ALZA)
+• Monto Invertido: $10.00 USD
+• Precio Entrada: 1.152355  ──▶  Precio Salida: 1.151975
+
+• Horario: 22:42:19 a 22:43:19 (60s)
+• Saldo Real Cuenta Post-Operación: $8914.52 USD
+• Rendimiento Neto Sesión: -$10.00 USD | Marcador: 0W - 1L - 0D
+----------------------------------------------------------------------------------
+══════════════════════════════════════════════════════════════════════════════════
+📊 INICIO DE SESIÓN DE TRADING - BOT IQ OPTION
+📅 Fecha y Hora de Inicio: 2026-08-15 23:18:10
+🎯 Par Operado: EUR/USD Blitz (ID: 76) | ⏱️ Expiración: 60s
+💼 Tipo de Cuenta: PRÁCTICA / DEMO (ID Balance: 1247876399)
+💰 Balance Inicial Real en Broker: $8914.52 USD
+📈 Payout Configurado: 82%
+══════════════════════════════════════════════════════════════════════════════════
+
+----------------------------------------------------------------------------------
+[23:19:25] ORDEN #1 - RESULTADO: GANADA (+$8.20 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: PUT (VENTA / BAJA)
+• Monto Invertido: $10.00 USD
+• Precio Entrada: 1.151525  ──▶  Precio Salida: 1.150845
+
+• Horario: 23:18:25 a 23:19:25 (60s)
+• Saldo Real Cuenta Post-Operación: $8922.72 USD
+• Rendimiento Neto Sesión: +$8.20 USD | Marcador: 1W - 0L - 0D
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+[23:20:55] ORDEN #2 - RESULTADO: GANADA (+$8.20 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: CALL (COMPRA / ALZA)
+• Monto Invertido: $10.00 USD
+• Precio Entrada: 1.150435  ──▶  Precio Salida: 1.150925
+
+• Horario: 23:19:55 a 23:20:55 (60s)
+• Saldo Real Cuenta Post-Operación: $8930.92 USD
+• Rendimiento Neto Sesión: +$16.40 USD | Marcador: 2W - 0L - 0D
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+[23:22:16] ORDEN #3 - RESULTADO: PERDIDA (-$10.00 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: CALL (COMPRA / ALZA)
+• Monto Invertido: $10.00 USD
+• Precio Entrada: 1.150765  ──▶  Precio Salida: 1.150375
+
+• Horario: 23:21:16 a 23:22:16 (60s)
+• Saldo Real Cuenta Post-Operación: $8920.92 USD
+• Rendimiento Neto Sesión: +$6.40 USD | Marcador: 2W - 1L - 0D
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+[23:23:36] ORDEN #4 - RESULTADO: GANADA (+$8.20 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: CALL (COMPRA / ALZA)
+• Monto Invertido: $10.00 USD
+• Precio Entrada: 1.150315  ──▶  Precio Salida: 1.150835
+
+• Horario: 23:22:36 a 23:23:36 (60s)
+• Saldo Real Cuenta Post-Operación: $8929.12 USD
+• Rendimiento Neto Sesión: +$14.60 USD | Marcador: 3W - 1L - 0D
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+[23:24:57] ORDEN #5 - RESULTADO: PERDIDA (-$10.00 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: PUT (VENTA / BAJA)
+• Monto Invertido: $10.00 USD
+• Precio Entrada: 1.150985  ──▶  Precio Salida: 1.151205
+
+• Horario: 23:23:58 a 23:24:57 (60s)
+• Saldo Real Cuenta Post-Operación: $8919.12 USD
+• Rendimiento Neto Sesión: +$4.60 USD | Marcador: 3W - 2L - 0D
+----------------------------------------------------------------------------------
+══════════════════════════════════════════════════════════════════════════════════
+📊 INICIO DE SESIÓN DE TRADING - BOT IQ OPTION
+📅 Fecha y Hora de Inicio: 2026-08-15 23:30:42
+🎯 Par Operado: EUR/USD Blitz (ID: 76) | ⏱️ Expiración: 60s
+💼 Tipo de Cuenta: PRÁCTICA / DEMO (ID Balance: 1247876399)
+💰 Balance Inicial Real en Broker: $8919.12 USD
+📈 Payout Configurado: 82%
+══════════════════════════════════════════════════════════════════════════════════
+
+══════════════════════════════════════════════════════════════════════════════════
+🏁 RESUMEN FINAL DE LA SESIÓN DE TRADING
+📅 Fecha y Hora de Cierre: 2026-08-15 23:30:52
+💼 Cuenta Operada: PRÁCTICA / DEMO (ID: 1247876399)
+⏳ Duración de la Sesión: 0.2 minutos
+----------------------------------------------------------------------------------
+📈 Balance Inicial Real en Broker: $8919.12 USD
+📉 Balance Final Real en Broker:   $8919.12 USD
+💰 Beneficio / Pérdida Neta:       +$0.00 USD (0.00%)
+🎯 Total de Operaciones:           0
+🏆 Desglose de Resultados:         0 Ganadas | 0 Perdidas | 0 Empates
+📊 Tasa de Acierto (Win Rate):     0.0%
+══════════════════════════════════════════════════════════════════════════════════
+
+
+══════════════════════════════════════════════════════════════════════════════════
+📊 INICIO DE SESIÓN DE TRADING - BOT IQ OPTION
+📅 Fecha y Hora de Inicio: 2026-08-15 23:33:32
+🎯 Par Operado: EUR/USD Blitz (ID: 76) | ⏱️ Expiración: 60s
+💼 Tipo de Cuenta: PRÁCTICA / DEMO (ID Balance: 1247876399)
+💰 Balance Inicial Real en Broker: $8919.12 USD
+📈 Payout Configurado: 82%
+══════════════════════════════════════════════════════════════════════════════════
+
+----------------------------------------------------------------------------------
+[23:34:42] ORDEN #1 - RESULTADO: PERDIDA (-$10.00 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: CALL (COMPRA / ALZA)
+• Monto Invertido: $10.00 USD
+• Precio Entrada: 1.150215  ──▶  Precio Salida: 1.149295
+
+• Horario: 23:33:42 a 23:34:42 (60s)
+• Saldo Real Cuenta Post-Operación: $8909.12 USD
+• Rendimiento Neto Sesión: -$10.00 USD | Marcador: 0W - 1L - 0D
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+[23:36:06] ORDEN #2 - RESULTADO: GANADA (+$8.20 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: CALL (COMPRA / ALZA)
+• Monto Invertido: $10.00 USD
+• Precio Entrada: 1.149335  ──▶  Precio Salida: 1.149635
+
+• Horario: 23:35:06 a 23:36:06 (60s)
+• Saldo Real Cuenta Post-Operación: $8917.32 USD
+• Rendimiento Neto Sesión: -$1.80 USD | Marcador: 1W - 1L - 0D
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+[23:37:28] ORDEN #3 - RESULTADO: GANADA (+$8.20 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: CALL (COMPRA / ALZA)
+• Monto Invertido: $10.00 USD
+• Precio Entrada: 1.149375  ──▶  Precio Salida: 1.149675
+
+• Horario: 23:36:28 a 23:37:28 (60s)
+• Saldo Real Cuenta Post-Operación: $8925.52 USD
+• Rendimiento Neto Sesión: +$6.40 USD | Marcador: 2W - 1L - 0D
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+[23:39:02] ORDEN #4 - RESULTADO: PERDIDA (-$10.00 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: PUT (VENTA / BAJA)
+• Monto Invertido: $10.00 USD
+• Precio Entrada: 1.150055  ──▶  Precio Salida: 1.150595
+
+• Horario: 23:38:02 a 23:39:02 (60s)
+• Saldo Real Cuenta Post-Operación: $8915.52 USD
+• Rendimiento Neto Sesión: -$3.60 USD | Marcador: 2W - 2L - 0D
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+[23:40:26] ORDEN #5 - RESULTADO: GANADA (+$8.20 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: PUT (VENTA / BAJA)
+• Monto Invertido: $10.00 USD
+• Precio Entrada: 1.151025  ──▶  Precio Salida: 1.150975
+
+• Horario: 23:39:26 a 23:40:26 (60s)
+• Saldo Real Cuenta Post-Operación: $8923.72 USD
+• Rendimiento Neto Sesión: +$4.60 USD | Marcador: 3W - 2L - 0D
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+[23:41:54] ORDEN #6 - RESULTADO: PERDIDA (-$10.00 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: PUT (VENTA / BAJA)
+• Monto Invertido: $10.00 USD
+• Precio Entrada: 1.150945  ──▶  Precio Salida: 1.151185
+
+• Horario: 23:40:54 a 23:41:54 (60s)
+• Saldo Real Cuenta Post-Operación: $8913.72 USD
+• Rendimiento Neto Sesión: -$5.40 USD | Marcador: 3W - 3L - 0D
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+[23:43:23] ORDEN #7 - RESULTADO: GANADA (+$8.20 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: PUT (VENTA / BAJA)
+• Monto Invertido: $10.00 USD
+• Precio Entrada: 1.151385  ──▶  Precio Salida: 1.150975
+
+• Horario: 23:42:23 a 23:43:23 (60s)
+• Saldo Real Cuenta Post-Operación: $8921.92 USD
+• Rendimiento Neto Sesión: +$2.80 USD | Marcador: 4W - 3L - 0D
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+[23:44:54] ORDEN #8 - RESULTADO: GANADA (+$8.20 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: PUT (VENTA / BAJA)
+• Monto Invertido: $10.00 USD
+• Precio Entrada: 1.150915  ──▶  Precio Salida: 1.150545
+
+• Horario: 23:43:54 a 23:44:54 (60s)
+• Saldo Real Cuenta Post-Operación: $8930.12 USD
+• Rendimiento Neto Sesión: +$11.00 USD | Marcador: 5W - 3L - 0D
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+[23:46:15] ORDEN #9 - RESULTADO: GANADA (+$8.20 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: CALL (COMPRA / ALZA)
+• Monto Invertido: $10.00 USD
+• Precio Entrada: 1.151165  ──▶  Precio Salida: 1.152125
+
+• Horario: 23:45:15 a 23:46:15 (60s)
+• Saldo Real Cuenta Post-Operación: $8938.32 USD
+• Rendimiento Neto Sesión: +$19.20 USD | Marcador: 6W - 3L - 0D
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+[23:47:41] ORDEN #10 - RESULTADO: GANADA (+$8.20 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: PUT (VENTA / BAJA)
+• Monto Invertido: $10.00 USD
+• Precio Entrada: 1.151765  ──▶  Precio Salida: 1.150695
+
+• Horario: 23:46:41 a 23:47:41 (60s)
+• Saldo Real Cuenta Post-Operación: $8946.52 USD
+• Rendimiento Neto Sesión: +$27.40 USD | Marcador: 7W - 3L - 0D
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+[23:49:05] ORDEN #11 - RESULTADO: PERDIDA (-$10.00 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: CALL (COMPRA / ALZA)
+• Monto Invertido: $10.00 USD
+• Precio Entrada: 1.150745  ──▶  Precio Salida: 1.150105
+
+• Horario: 23:48:05 a 23:49:05 (60s)
+• Saldo Real Cuenta Post-Operación: $8936.52 USD
+• Rendimiento Neto Sesión: +$17.40 USD | Marcador: 7W - 4L - 0D
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+[23:50:28] ORDEN #12 - RESULTADO: GANADA (+$8.20 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: CALL (COMPRA / ALZA)
+• Monto Invertido: $10.00 USD
+• Precio Entrada: 1.149915  ──▶  Precio Salida: 1.150295
+
+• Horario: 23:49:28 a 23:50:28 (60s)
+• Saldo Real Cuenta Post-Operación: $8944.72 USD
+• Rendimiento Neto Sesión: +$25.60 USD | Marcador: 8W - 4L - 0D
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+[23:51:57] ORDEN #13 - RESULTADO: GANADA (+$8.20 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: PUT (VENTA / BAJA)
+• Monto Invertido: $10.00 USD
+• Precio Entrada: 1.150715  ──▶  Precio Salida: 1.150625
+
+• Horario: 23:50:57 a 23:51:57 (60s)
+• Saldo Real Cuenta Post-Operación: $8952.92 USD
+• Rendimiento Neto Sesión: +$33.80 USD | Marcador: 9W - 4L - 0D
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+[23:53:23] ORDEN #14 - RESULTADO: GANADA (+$8.20 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: PUT (VENTA / BAJA)
+• Monto Invertido: $10.00 USD
+• Precio Entrada: 1.150695  ──▶  Precio Salida: 1.150435
+
+• Horario: 23:52:23 a 23:53:23 (60s)
+• Saldo Real Cuenta Post-Operación: $8961.12 USD
+• Rendimiento Neto Sesión: +$42.00 USD | Marcador: 10W - 4L - 0D
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+[23:54:44] ORDEN #15 - RESULTADO: PERDIDA (-$10.00 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: PUT (VENTA / BAJA)
+• Monto Invertido: $10.00 USD
+• Precio Entrada: 1.150675  ──▶  Precio Salida: 1.150815
+
+• Horario: 23:53:44 a 23:54:44 (60s)
+• Saldo Real Cuenta Post-Operación: $8951.12 USD
+• Rendimiento Neto Sesión: +$32.00 USD | Marcador: 10W - 5L - 0D
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+[23:56:06] ORDEN #16 - RESULTADO: GANADA (+$8.20 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: PUT (VENTA / BAJA)
+• Monto Invertido: $10.00 USD
+• Precio Entrada: 1.150965  ──▶  Precio Salida: 1.150625
+
+• Horario: 23:55:06 a 23:56:06 (60s)
+• Saldo Real Cuenta Post-Operación: $8959.32 USD
+• Rendimiento Neto Sesión: +$40.20 USD | Marcador: 11W - 5L - 0D
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+[23:57:31] ORDEN #17 - RESULTADO: PERDIDA (-$10.00 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: PUT (VENTA / BAJA)
+• Monto Invertido: $10.00 USD
+• Precio Entrada: 1.150965  ──▶  Precio Salida: 1.151005
+
+• Horario: 23:56:31 a 23:57:31 (60s)
+• Saldo Real Cuenta Post-Operación: $8949.32 USD
+• Rendimiento Neto Sesión: +$30.20 USD | Marcador: 11W - 6L - 0D
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+[23:58:55] ORDEN #18 - RESULTADO: GANADA (+$8.20 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: CALL (COMPRA / ALZA)
+• Monto Invertido: $10.00 USD
+• Precio Entrada: 1.150425  ──▶  Precio Salida: 1.150625
+
+• Horario: 23:57:55 a 23:58:55 (60s)
+• Saldo Real Cuenta Post-Operación: $8957.52 USD
+• Rendimiento Neto Sesión: +$38.40 USD | Marcador: 12W - 6L - 0D
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+[0:00:18] ORDEN #19 - RESULTADO: GANADA (+$8.20 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: PUT (VENTA / BAJA)
+• Monto Invertido: $10.00 USD
+• Precio Entrada: 1.150585  ──▶  Precio Salida: 1.149895
+
+• Horario: 23:59:18 a 0:00:18 (60s)
+• Saldo Real Cuenta Post-Operación: $8965.72 USD
+• Rendimiento Neto Sesión: +$46.60 USD | Marcador: 13W - 6L - 0D
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+[0:01:42] ORDEN #20 - RESULTADO: GANADA (+$8.20 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: CALL (COMPRA / ALZA)
+• Monto Invertido: $10.00 USD
+• Precio Entrada: 1.149325  ──▶  Precio Salida: 1.149475
+
+• Horario: 0:00:42 a 0:01:42 (60s)
+• Saldo Real Cuenta Post-Operación: $8973.92 USD
+• Rendimiento Neto Sesión: +$54.80 USD | Marcador: 14W - 6L - 0D
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+[0:03:10] ORDEN #21 - RESULTADO: PERDIDA (-$10.00 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: CALL (COMPRA / ALZA)
+• Monto Invertido: $10.00 USD
+• Precio Entrada: 1.149535  ──▶  Precio Salida: 1.148875
+
+• Horario: 0:02:10 a 0:03:10 (60s)
+• Saldo Real Cuenta Post-Operación: $8963.92 USD
+• Rendimiento Neto Sesión: +$44.80 USD | Marcador: 14W - 7L - 0D
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+[0:04:41] ORDEN #22 - RESULTADO: PERDIDA (-$10.00 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: CALL (COMPRA / ALZA)
+• Monto Invertido: $10.00 USD
+• Precio Entrada: 1.148855  ──▶  Precio Salida: 1.148755
+
+• Horario: 0:03:41 a 0:04:41 (60s)
+• Saldo Real Cuenta Post-Operación: $8953.92 USD
+• Rendimiento Neto Sesión: +$34.80 USD | Marcador: 14W - 8L - 0D
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+[0:06:10] ORDEN #23 - RESULTADO: PERDIDA (-$10.00 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: PUT (VENTA / BAJA)
+• Monto Invertido: $10.00 USD
+• Precio Entrada: 1.149145  ──▶  Precio Salida: 1.149375
+
+• Horario: 0:05:11 a 0:06:10 (60s)
+• Saldo Real Cuenta Post-Operación: $8943.92 USD
+• Rendimiento Neto Sesión: +$24.80 USD | Marcador: 14W - 9L - 0D
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+[0:07:38] ORDEN #24 - RESULTADO: PERDIDA (-$10.00 USD)
+• Cuenta: PRÁCTICA / DEMO (ID: 1247876399)
+• Dirección: CALL (COMPRA / ALZA)
+• Monto Invertido: $10.00 USD
+• Precio Entrada: 1.148825  ──▶  Precio Salida: 1.147895
+
+• Horario: 0:06:38 a 0:07:38 (60s)
+• Saldo Real Cuenta Post-Operación: $8933.92 USD
+• Rendimiento Neto Sesión: +$14.80 USD | Marcador: 14W - 10L - 0D
+----------------------------------------------------------------------------------
+══════════════════════════════════════════════════════════════════════════════════
+🏁 RESUMEN FINAL DE LA SESIÓN DE TRADING
+📅 Fecha y Hora de Cierre: 2026-08-15 0:08:27
+💼 Cuenta Operada: PRÁCTICA / DEMO (ID: 1247876399)
+⏳ Duración de la Sesión: 34.9 minutos
+----------------------------------------------------------------------------------
+📈 Balance Inicial Real en Broker: $8919.12 USD
+📉 Balance Final Real en Broker:   $8933.92 USD
+💰 Beneficio / Pérdida Neta:       +$14.80 USD (0.17%)
+🎯 Total de Operaciones:           24
+🏆 Desglose de Resultados:         14 Ganadas | 10 Perdidas | 0 Empates
+📊 Tasa de Acierto (Win Rate):     58.3%
+══════════════════════════════════════════════════════════════════════════════════
+

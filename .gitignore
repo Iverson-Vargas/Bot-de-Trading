@@ -1,0 +1,6 @@
+.env
+node_modules
+__pycache__
+*.pyc
+data/test_trades.db
+data/test_trades.csv
