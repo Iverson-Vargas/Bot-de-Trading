@@ -2,46 +2,50 @@ import WebSocket from 'ws';
 import fs from 'fs';
 import path from 'path';
 
-// Cargar variables de entorno nativamente en Node.js
 try {
     process.loadEnvFile('.env');
-} catch (e) {
-    // Si no encuentra el archivo .env usa valores por defecto
-}
+} catch (e) {}
 
 // ==============================================================================
-// CONFIGURACIÓN GENERAL Y VARIABLES DE ENTORNO
+// CONFIGURACION GENERAL
 // ==============================================================================
 const WS_BROKER_URL = 'wss://ws.iqoption.com/echo/websocket';
-const ACCOUNT_MODE = (process.env.ACCOUNT_MODE || 'demo').toLowerCase(); // 'demo' o 'real'
-const SSID = process.env.SSID || 'abe621c09e62ec71ba1e237dfbbb11ax';
-const USER_BALANCE_ID = parseInt(process.env.USER_BALANCE_ID || '1247876399', 10);
-const ACTIVE_ID = parseInt(process.env.ACTIVE_ID || '76', 10); // 76 = EUR/USD Blitz
-const OPTION_TYPE_ID = parseInt(process.env.OPTION_TYPE_ID || '12', 10); // 12 = Blitz/Turbo
+const ACCOUNT_MODE = (process.env.ACCOUNT_MODE || 'demo').toLowerCase();
+const SSID = process.env.SSID || '';
+const USER_BALANCE_ID = parseInt(process.env.USER_BALANCE_ID || '0', 10);
+const ACTIVE_ID = parseInt(process.env.ACTIVE_ID || '76', 10);
+const OPTION_TYPE_ID = parseInt(process.env.OPTION_TYPE_ID || '12', 10);
 const EXPIRATION_SECONDS = parseInt(process.env.EXPIRATION_SECONDS || '60', 10);
 const PROFIT_PERCENT = parseInt(process.env.PROFIT_PERCENT || '82', 10);
 const PYTHON_API_URL = process.env.PYTHON_API_URL || 'http://127.0.0.1:8000/analizar';
-
-// Ruta del archivo de registro (en la raíz del proyecto para compatibilidad hacia atrás)
 const REGISTRO_FILE = path.resolve(process.cwd(), '../registro_operaciones.txt');
+
+// Validar SSID al inicio
+if (!SSID || SSID.length < 10) {
+    console.error('\n[ERROR CRITICO] No se encontro un SSID valido.');
+    console.error('  Configura tu SSID en el archivo transito-broker/.env');
+    console.error('  Ejemplo: SSID=tu_ssid_de_iqoption\n');
+    console.error('  El bot se ejecutara pero no podra autenticarse con el broker.\n');
+}
 
 let ws = null;
 let reconnectAttempts = 0;
 const MAX_RECONNECT_DELAY_MS = 30000;
+const MAX_RECONNECT_ATTEMPTS = 50;
 let reconnectTimer = null;
 let heartbeatInterval = null;
+let isShuttingDown = false;
 
 let requestIdCounter = 1;
-let lastKnownPrice = 1.1577;
+let lastKnownPrice = 0;
 let serverTimeOffset = 0;
 let isAuthenticated = false;
-let hayOperacionEnCurso = false; // Candado estricto para evitar operaciones simultáneas
-let operationWatchdogTimer = null; // Temporizador guardián para liberar candado en caso de fallo
+let hayOperacionEnCurso = false;
+let operationWatchdogTimer = null;
 
-// Balance y Estadísticas de la Sesión
 const fechaInicio = new Date();
-let saldoInicial = 10000.0;
-let saldoActual = 10000.0;
+let saldoInicial = 0;
+let saldoActual = 0;
 let balanceDetectadoBroker = false;
 
 const estadisticas = {
@@ -51,7 +55,6 @@ const estadisticas = {
     balanceNeto: 0.0
 };
 
-// Mapa para rastrear órdenes activas en memoria
 const ordenesActivas = new Map();
 
 function obtenerHoraLocal() {
@@ -64,54 +67,52 @@ function obtenerFechaHoraLocal() {
 }
 
 let activeBalanceId = USER_BALANCE_ID;
-let activeAccountType = 'PRÁCTICA / DEMO';
+let activeAccountType = 'DEMO';
 let sessionStartedTxt = false;
 
 // ==============================================================================
-// REGISTRO EN ARCHIVO TXT (Compatibilidad hacia atrás)
+// REGISTRO EN ARCHIVO TXT
 // ==============================================================================
 function registrarInicioSesionTxt() {
     if (sessionStartedTxt) return;
     sessionStartedTxt = true;
 
     const encabezado = `
-══════════════════════════════════════════════════════════════════════════════════
-📊 INICIO DE SESIÓN DE TRADING - BOT IQ OPTION
-📅 Fecha y Hora de Inicio: ${obtenerFechaHoraLocal()}
-🎯 Par Operado: EUR/USD Blitz (ID: ${ACTIVE_ID}) | ⏱️ Expiración: ${EXPIRATION_SECONDS}s
-💼 Tipo de Cuenta: ${activeAccountType} (ID Balance: ${activeBalanceId})
-💰 Balance Inicial Real en Broker: $${saldoInicial.toFixed(2)} USD
-📈 Payout Configurado: ${PROFIT_PERCENT}%
-══════════════════════════════════════════════════════════════════════════════════
+================================================================================
+  INICIO DE SESION DE TRADING - BOT IQ OPTION
+  Fecha y Hora de Inicio: ${obtenerFechaHoraLocal()}
+  Par Operado: EUR/USD Blitz (ID: ${ACTIVE_ID}) | Expiracion: ${EXPIRATION_SECONDS}s
+  Tipo de Cuenta: ${activeAccountType} (ID Balance: ${activeBalanceId})
+  Balance Inicial Real en Broker: $${saldoInicial.toFixed(2)} USD
+  Payout Configurado: ${PROFIT_PERCENT}%
+================================================================================
 `;
     try {
         fs.appendFileSync(REGISTRO_FILE, encabezado, 'utf8');
         fetch('http://127.0.0.1:8000/reiniciar-sesion', { method: 'POST' }).catch(() => {});
     } catch (e) {
-        console.error('[TXT] Error escribiendo encabezado en TXT:', e.message);
+        console.error('[TXT] Error escribiendo encabezado:', e.message);
     }
 }
 
 function registrarOperacionTxt(orden, resultado, gananciaNeta, precioSalida, horaCierre) {
     const pnlSigno = gananciaNeta >= 0 ? `+$${gananciaNeta.toFixed(2)}` : `-$${Math.abs(gananciaNeta).toFixed(2)}`;
     const netoSigno = estadisticas.balanceNeto >= 0 ? `+$${estadisticas.balanceNeto.toFixed(2)}` : `-$${Math.abs(estadisticas.balanceNeto).toFixed(2)}`;
-    
+
     const registro = `
 ----------------------------------------------------------------------------------
 [${horaCierre}] ORDEN #${orden.id} - RESULTADO: ${resultado} (${pnlSigno} USD)
-• Cuenta: ${activeAccountType} (ID: ${activeBalanceId})
-• Dirección: ${orden.direccion === 'CALL' ? 'CALL (COMPRA / ALZA)' : 'PUT (VENTA / BAJA)'}
-• Monto Invertido: $${orden.monto.toFixed(2)} USD
-• Precio Entrada: ${orden.precioEntrada.toFixed(6)}  ──▶  Precio Salida: ${precioSalida.toFixed(6)}
-
-• Horario: ${orden.horaApertura} a ${horaCierre} (${orden.expiracionSegundos}s)
-• Saldo Real Cuenta Post-Operación: $${saldoActual.toFixed(2)} USD
-• Rendimiento Neto Sesión: ${netoSigno} USD | Marcador: ${estadisticas.ganadas}W - ${estadisticas.perdidas}L - ${estadisticas.empates}D
+  Cuenta: ${activeAccountType} (ID: ${activeBalanceId})
+  Direccion: ${orden.direccion === 'CALL' ? 'CALL (COMPRA)' : 'PUT (VENTA)'}
+  Monto Invertido: $${orden.monto.toFixed(2)} USD
+  Precio Entrada: ${orden.precioEntrada.toFixed(6)}  -->  Precio Salida: ${precioSalida.toFixed(6)}
+  Saldo Real Cuenta Post-Operacion: $${saldoActual.toFixed(2)} USD
+  Rendimiento Neto Sesion: ${netoSigno} USD | Marcador: ${estadisticas.ganadas}W - ${estadisticas.perdidas}L - ${estadisticas.empates}D
 ----------------------------------------------------------------------------------`;
     try {
         fs.appendFileSync(REGISTRO_FILE, registro, 'utf8');
     } catch (e) {
-        console.error('[TXT] Error guardando operación en TXT:', e.message);
+        console.error('[TXT] Error guardando operacion:', e.message);
     }
 }
 
@@ -131,38 +132,61 @@ function guardarResumenCierreSesion() {
     const pnlFinalSigno = estadisticas.balanceNeto >= 0 ? `+$${estadisticas.balanceNeto.toFixed(2)}` : `-$${Math.abs(estadisticas.balanceNeto).toFixed(2)}`;
 
     const resumenTexto = `
-══════════════════════════════════════════════════════════════════════════════════
-🏁 RESUMEN FINAL DE LA SESIÓN DE TRADING
-📅 Fecha y Hora de Cierre: ${obtenerFechaHoraLocal()}
-💼 Cuenta Operada: ${activeAccountType} (ID: ${activeBalanceId})
-⏳ Duración de la Sesión: ${minutosDuracion} minutos
+================================================================================
+  RESUMEN FINAL DE LA SESION DE TRADING
+  Fecha y Hora de Cierre: ${obtenerFechaHoraLocal()}
+  Cuenta Operada: ${activeAccountType} (ID: ${activeBalanceId})
+  Duracion de la Sesion: ${minutosDuracion} minutos
 ----------------------------------------------------------------------------------
-📈 Balance Inicial Real en Broker: $${saldoInicial.toFixed(2)} USD
-📉 Balance Final Real en Broker:   $${saldoActual.toFixed(2)} USD
-💰 Beneficio / Pérdida Neta:       ${pnlFinalSigno} USD (${rentabilidad}%)
-🎯 Total de Operaciones:           ${totalOps}
-🏆 Desglose de Resultados:         ${estadisticas.ganadas} Ganadas | ${estadisticas.perdidas} Perdidas | ${estadisticas.empates} Empates
-📊 Tasa de Acierto (Win Rate):     ${winRate}%
-══════════════════════════════════════════════════════════════════════════════════
+  Balance Inicial Real en Broker: $${saldoInicial.toFixed(2)} USD
+  Balance Final Real en Broker:   $${saldoActual.toFixed(2)} USD
+  Beneficio / Perdida Neta:       ${pnlFinalSigno} USD (${rentabilidad}%)
+  Total de Operaciones:           ${totalOps}
+  Desglose de Resultados:         ${estadisticas.ganadas} Ganadas | ${estadisticas.perdidas} Perdidas | ${estadisticas.empates} Empates
+  Tasa de Acierto (Win Rate):     ${winRate}%
+================================================================================
 \n`;
 
     try {
         fs.appendFileSync(REGISTRO_FILE, resumenTexto, 'utf8');
     } catch (e) {}
-
     console.log(resumenTexto);
-    console.log(`[TXT] 💾 Historial y resumen guardados exitosamente en: ${REGISTRO_FILE}\n`);
 }
 
-process.on('SIGINT', () => { guardarResumenCierreSesion(); process.exit(0); });
-process.on('SIGTERM', () => { guardarResumenCierreSesion(); process.exit(0); });
-process.on('exit', () => { guardarResumenCierreSesion(); });
+// ==============================================================================
+// SHUTDOWN GRACEFUL
+// ==============================================================================
+function gracefulShutdown(signal) {
+    if (isShuttingDown) return;
+    isShuttingDown = true;
+    console.log(`\n[${obtenerHoraLocal()}] [NODE] Recibida senal ${signal}. Cerrando conexiones...`);
+
+    if (heartbeatInterval) clearInterval(heartbeatInterval);
+    if (reconnectTimer) clearTimeout(reconnectTimer);
+    if (operationWatchdogTimer) clearTimeout(operationWatchdogTimer);
+
+    guardarResumenCierreSesion();
+
+    if (ws) {
+        try {
+            ws.removeAllListeners();
+            ws.close(1000, 'Shutdown');
+        } catch (e) {}
+    }
+
+    console.log(`[${obtenerHoraLocal()}] [NODE] Bot detenido correctamente.`);
+    setTimeout(() => process.exit(0), 500);
+}
+
+process.on('SIGINT', () => gracefulShutdown('SIGINT'));
+process.on('SIGTERM', () => gracefulShutdown('SIGTERM'));
+process.on('exit', () => { if (!resumenGuardado) guardarResumenCierreSesion(); });
 
 // ==============================================================================
-// GESTIÓN DE BALANCES Y PERFILES
+// GESTION DE BALANCES Y PERFILES
 // ==============================================================================
 function extraerBalancesDeMensaje(mensaje) {
-    if (mensaje.name !== 'profile' && mensaje.name !== 'balances' && mensaje.name !== 'get-balances' && mensaje.name !== 'balance-changed') {
+    if (!['profile', 'balances', 'get-balances', 'balance-changed'].includes(mensaje.name)) {
         return;
     }
 
@@ -185,7 +209,7 @@ function extraerBalancesDeMensaje(mensaje) {
     } else if (mensaje.msg && Array.isArray(mensaje.msg.balances)) {
         balancesArray = mensaje.msg.balances;
         balanceIdPrincipal = mensaje.msg.balance_id;
-    } else if (mensaje.msg && mensaje.msg.result && Array.isArray(mensaje.msg.result.balances)) {
+    } else if (mensaje.msg?.result && Array.isArray(mensaje.msg.result.balances)) {
         balancesArray = mensaje.msg.result.balances;
         balanceIdPrincipal = mensaje.msg.result.balance_id;
     }
@@ -210,18 +234,18 @@ function extraerBalancesDeMensaje(mensaje) {
     }
 
     if (balanceObj) {
-        const rawAmount = balanceObj.amount !== undefined ? balanceObj.amount : (balanceObj.current_balance !== undefined ? balanceObj.current_balance : balanceObj.value);
+        const rawAmount = balanceObj.amount ?? balanceObj.current_balance ?? balanceObj.value;
         if (rawAmount !== undefined && rawAmount !== null) {
             const monto = parseFloat(rawAmount);
             activeBalanceId = balanceObj.id;
-            activeAccountType = balanceObj.type === 1 ? 'REAL (DINERO REAL)' : (balanceObj.type === 4 ? 'PRÁCTICA / DEMO' : `CUENTA #${balanceObj.id}`);
+            activeAccountType = balanceObj.type === 1 ? 'REAL' : (balanceObj.type === 4 ? 'DEMO' : `CUENTA #${balanceObj.id}`);
 
             if (!balanceDetectadoBroker) {
                 saldoInicial = monto;
                 saldoActual = monto;
                 balanceDetectadoBroker = true;
-                console.log(`[${obtenerHoraLocal()}] [NODE] 💼 Modo: ${ACCOUNT_MODE.toUpperCase()} -> Cuenta: ${activeAccountType} (ID: ${activeBalanceId})`);
-                console.log(`[${obtenerHoraLocal()}] [NODE] 💰 Saldo Real en Broker: $${saldoActual.toFixed(2)} USD`);
+                console.log(`[${obtenerHoraLocal()}] [NODE] Modo: ${ACCOUNT_MODE.toUpperCase()} -> Cuenta: ${activeAccountType} (ID: ${activeBalanceId})`);
+                console.log(`[${obtenerHoraLocal()}] [NODE] Saldo Real en Broker: $${saldoActual.toFixed(2)} USD`);
                 registrarInicioSesionTxt();
             } else {
                 saldoActual = monto;
@@ -231,9 +255,11 @@ function extraerBalancesDeMensaje(mensaje) {
 }
 
 // ==============================================================================
-// CONEXIÓN WEBSOCKET Y AUTO-RECONEXIÓN CON BACKOFF EXPONENCIAL
+// CONEXION WEBSOCKET CON AUTO-RECONEXION
 // ==============================================================================
 function conectarWebSocket() {
+    if (isShuttingDown) return;
+
     if (ws) {
         try {
             ws.removeAllListeners();
@@ -241,21 +267,20 @@ function conectarWebSocket() {
         } catch (e) {}
     }
 
-    console.log(`\n[${obtenerHoraLocal()}] [NODE] 🔌 Conectando con servidor WebSocket IQ Option (${WS_BROKER_URL})...`);
-    
+    console.log(`\n[${obtenerHoraLocal()}] [NODE] Conectando con servidor WebSocket IQ Option...`);
+
     ws = new WebSocket(WS_BROKER_URL, {
         origin: 'https://iqoption.com',
         headers: {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36'
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
         }
     });
 
     ws.on('open', () => {
-        console.log(`[${obtenerHoraLocal()}] [NODE] 🟢 Conexión establecida exitosamente.`);
-        reconnectAttempts = 0; // Resetear contador de reintentos
-        
-        // 1. Autenticación con el SSID
-        console.log(`[${obtenerHoraLocal()}] [NODE] 🔐 Enviando credenciales de autenticación...`);
+        console.log(`[${obtenerHoraLocal()}] [NODE] Conexion establecida.`);
+        reconnectAttempts = 0;
+
+        console.log(`[${obtenerHoraLocal()}] [NODE] Enviando credenciales de autenticacion...`);
         ws.send(JSON.stringify({
             name: "authenticate",
             request_id: `auth_${Date.now()}`,
@@ -274,7 +299,6 @@ function conectarWebSocket() {
             request_id: `ssid_${Date.now()}`
         }));
 
-        // Heartbeat cada 20 segundos para mantener la conexión viva
         if (heartbeatInterval) clearInterval(heartbeatInterval);
         heartbeatInterval = setInterval(() => {
             if (ws && ws.readyState === WebSocket.OPEN) {
@@ -284,152 +308,147 @@ function conectarWebSocket() {
     });
 
     ws.on('message', async (data) => {
+        if (isShuttingDown) return;
+
+        let mensaje;
         try {
-            const mensaje = JSON.parse(data.toString());
+            mensaje = JSON.parse(data.toString());
+        } catch {
+            return;
+        }
 
-            // A. Sincronización de hora del servidor
-            if (mensaje.name === 'timeSync') {
-                const serverTime = mensaje.msg;
-                serverTimeOffset = serverTime - Math.floor(Date.now() / 1000);
-            }
+        if (mensaje.name === 'timeSync') {
+            serverTimeOffset = mensaje.msg - Math.floor(Date.now() / 1000);
+            return;
+        }
 
-            // B. Manejo explícito de errores de autenticación
-            if (mensaje.name === 'auth-error' || (mensaje.msg && mensaje.msg.is_successful === false && mensaje.request_id?.startsWith('auth_'))) {
-                console.error('\n═══════════════════════════════════════════════════════════════');
-                console.error(`[${obtenerHoraLocal()}] ❌ ERROR CRÍTICO DE AUTENTICACIÓN: SSID INVÁLIDO O EXPIRADO.`);
-                console.error('   Por favor obtén un nuevo SSID desde las cookies de tu navegador en iqoption.com');
-                console.error('   y actualiza el archivo .env con: SSID=tu_nuevo_ssid');
-                console.error('═══════════════════════════════════════════════════════════════\n');
-                return;
-            }
+        if (mensaje.name === 'auth-error' || (mensaje.msg?.is_successful === false && mensaje.request_id?.startsWith('auth_'))) {
+            console.error(`\n[${obtenerHoraLocal()}] ERROR CRITICO: SSID INVALIDO O EXPIRADO.`);
+            console.error('  Obtiene un nuevo SSID desde las cookies de tu navegador en iqoption.com');
+            console.error('  y actualiza el archivo .env con: SSID=tu_nuevo_ssid\n');
+            return;
+        }
 
-            // C. Extraer balances
-            extraerBalancesDeMensaje(mensaje);
+        extraerBalancesDeMensaje(mensaje);
 
-            // D. Respuesta de Autenticación Exitosa
-            if (mensaje.name === 'authenticated' || mensaje.name === 'profile') {
-                isAuthenticated = true;
-                console.log(`[${obtenerHoraLocal()}] [NODE] ✅ ¡Autenticado exitosamente en IQ Option!`);
-                
-                // Suscribirse a las velas de 10 segundos del activo (EUR/USD Blitz)
-                console.log(`[${obtenerHoraLocal()}] [NODE] 📡 Suscribiéndose a velas de 10s del activo ${ACTIVE_ID}...`);
-                ws.send(JSON.stringify({
-                    name: "subscribeMessage",
-                    request_id: `sub_candles_${Date.now()}`,
-                    msg: {
-                        name: "candle-generated",
-                        params: {
-                            routingFilters: {
-                                active_id: ACTIVE_ID,
-                                size: 10 // Velas de 10 segundos
-                            }
+        if (mensaje.name === 'authenticated' || mensaje.name === 'profile') {
+            if (isAuthenticated) return;
+            isAuthenticated = true;
+            console.log(`[${obtenerHoraLocal()}] [NODE] Autenticado exitosamente en IQ Option!`);
+
+            console.log(`[${obtenerHoraLocal()}] [NODE] Suscribiendose a velas de 10s del activo ${ACTIVE_ID}...`);
+            ws.send(JSON.stringify({
+                name: "subscribeMessage",
+                request_id: `sub_candles_${Date.now()}`,
+                msg: {
+                    name: "candle-generated",
+                    params: {
+                        routingFilters: {
+                            active_id: ACTIVE_ID,
+                            size: 10
                         }
                     }
-                }));
-
-                ws.send(JSON.stringify({
-                    name: "subscribeMessage",
-                    request_id: `sub_quotes_${Date.now()}`,
-                    msg: {
-                        name: "quote",
-                        params: {
-                            routingFilters: {
-                                active_id: ACTIVE_ID
-                            }
-                        }
-                    }
-                }));
-
-                setTimeout(() => {
-                    if (!sessionStartedTxt) registrarInicioSesionTxt();
-                }, 3000);
-                return;
-            }
-
-            // E. Recepción de Velas de 10s completas
-            if (mensaje.name === 'candle-generated') {
-                const vela = mensaje.msg;
-                if (vela.active_id === ACTIVE_ID) {
-                    lastKnownPrice = vela.close || vela.value || lastKnownPrice;
-                    await procesarDatosConPython({
-                        active_id: vela.active_id,
-                        price: lastKnownPrice,
-                        open: vela.open,
-                        close: vela.close,
-                        min: vela.min,
-                        max: vela.max,
-                        volume: vela.volume,
-                        timestamp: vela.to || Math.floor(Date.now() / 1000)
-                    });
                 }
-            } else if (mensaje.name === 'quote' || mensaje.name === 'instrument-quotes') {
-                const tick = mensaje.msg;
-                const precio = tick.value || (tick.price ? tick.price : null);
-                if (precio) {
-                    lastKnownPrice = precio;
-                }
-            }
+            }));
 
-            // F. Confirmación de orden abierta por el broker
-            if (mensaje.name === 'option-opened' || (mensaje.msg && mensaje.msg.name === 'option-opened')) {
-                const body = mensaje.msg?.body || mensaje.msg || mensaje;
-                const brokerId = body.id || body.option_id;
-                console.log(`[${obtenerHoraLocal()}] [NODE] 🎉 ¡Operación ACEPTADA en IQ Option! (ID Broker: ${brokerId || 'OK'})`);
-                for (const [reqId, o] of ordenesActivas.entries()) {
-                    if (!o.resuelto && !o.brokerId) {
-                        o.brokerId = brokerId;
-                        break;
+            ws.send(JSON.stringify({
+                name: "subscribeMessage",
+                request_id: `sub_quotes_${Date.now()}`,
+                msg: {
+                    name: "quote",
+                    params: {
+                        routingFilters: { active_id: ACTIVE_ID }
                     }
                 }
-            }
+            }));
 
-            // G. Rechazo de orden
-            if (mensaje.name === 'socket-option-rejected' || (mensaje.name === 'sendMessage' && mensaje.msg?.is_successful === false)) {
-                console.error(`[${obtenerHoraLocal()}] [NODE] ❌ RECHAZO DE IQ OPTION:`, mensaje.msg?.message || JSON.stringify(mensaje.msg));
-                // Liberar candado ante rechazo para no bloquear el sistema
-                hayOperacionEnCurso = false;
-                if (operationWatchdogTimer) clearTimeout(operationWatchdogTimer);
-            }
+            setTimeout(() => {
+                if (!sessionStartedTxt) registrarInicioSesionTxt();
+            }, 3000);
+            return;
+        }
 
-            // H. Resultado oficial de operación finalizada
-            if (mensaje.name === 'option-closed' || mensaje.name === 'socket-option-closed' || mensaje.name === 'position-changed' || (mensaje.msg && (mensaje.msg.name === 'option-closed' || mensaje.msg.name === 'socket-option-closed'))) {
-                const res = mensaje.msg?.body || mensaje.msg || mensaje;
-                finalizarOrdenDesdeBroker(res);
+        if (mensaje.name === 'candle-generated') {
+            const vela = mensaje.msg;
+            if (vela.active_id === ACTIVE_ID) {
+                lastKnownPrice = vela.close || vela.value || lastKnownPrice;
+                await procesarDatosConPython({
+                    active_id: vela.active_id,
+                    price: lastKnownPrice,
+                    open: vela.open,
+                    close: vela.close,
+                    min: vela.min,
+                    max: vela.max,
+                    volume: vela.volume,
+                    timestamp: vela.to || Math.floor(Date.now() / 1000)
+                });
             }
+        } else if (mensaje.name === 'quote' || mensaje.name === 'instrument-quotes') {
+            const tick = mensaje.msg;
+            const precio = tick.value || tick.price || null;
+            if (precio) lastKnownPrice = precio;
+        }
 
-        } catch (err) {
-            // Ignorar errores de parsing menores
+        if (mensaje.name === 'option-opened' || mensaje.msg?.name === 'option-opened') {
+            const body = mensaje.msg?.body || mensaje.msg || mensaje;
+            const brokerId = body.id || body.option_id;
+            console.log(`[${obtenerHoraLocal()}] [NODE] Operacion ACEPTADA (ID Broker: ${brokerId || 'OK'})`);
+            for (const [, o] of ordenesActivas.entries()) {
+                if (!o.resuelto && !o.brokerId) {
+                    o.brokerId = brokerId;
+                    break;
+                }
+            }
+        }
+
+        if (mensaje.name === 'socket-option-rejected' || (mensaje.name === 'sendMessage' && mensaje.msg?.is_successful === false)) {
+            console.error(`[${obtenerHoraLocal()}] [NODE] RECHAZO:`, mensaje.msg?.message || 'Sin detalle');
+            hayOperacionEnCurso = false;
+            if (operationWatchdogTimer) clearTimeout(operationWatchdogTimer);
+        }
+
+        if (['option-closed', 'socket-option-closed', 'position-changed'].includes(mensaje.name) ||
+            ['option-closed', 'socket-option-closed'].includes(mensaje.msg?.name)) {
+            const res = mensaje.msg?.body || mensaje.msg || mensaje;
+            finalizarOrdenDesdeBroker(res);
         }
     });
 
     ws.on('close', (codigo, razon) => {
-        console.warn(`[${obtenerHoraLocal()}] [NODE] 🔴 Conexión cerrada. Código: ${codigo} - Motivo: ${razon || 'Desconexión de red'}`);
+        console.warn(`[${obtenerHoraLocal()}] [NODE] Conexion cerrada. Codigo: ${codigo}`);
+        isAuthenticated = false;
         if (heartbeatInterval) clearInterval(heartbeatInterval);
-        programarReconexion();
+        if (!isShuttingDown) programarReconexion();
     });
 
     ws.on('error', (err) => {
-        console.error(`[${obtenerHoraLocal()}] [NODE] ❌ Error en WebSocket:`, err.message);
+        console.error(`[${obtenerHoraLocal()}] [NODE] Error en WebSocket:`, err.message);
     });
 }
 
 function programarReconexion() {
+    if (isShuttingDown) return;
     if (reconnectTimer) clearTimeout(reconnectTimer);
+
     reconnectAttempts++;
-    
-    // Backoff exponencial: 2s, 4s, 8s, 16s, máx 30s
-    const delayMs = Math.min(Math.pow(2, reconnectAttempts) * 1000, MAX_RECONNECT_DELAY_MS);
-    console.log(`[${obtenerHoraLocal()}] [NODE] 🔄 Reintentando reconexión en ${(delayMs/1000).toFixed(0)} segundos (Intento #${reconnectAttempts})...`);
-    
-    reconnectTimer = setTimeout(() => {
-        conectarWebSocket();
-    }, delayMs);
+    if (reconnectAttempts > MAX_RECONNECT_ATTEMPTS) {
+        console.error(`[${obtenerHoraLocal()}] [NODE] Se alcanzo el maximo de reintentos (${MAX_RECONNECT_ATTEMPTS}). Deteniendo.`);
+        gracefulShutdown('MAX_RECONNECT');
+        return;
+    }
+
+    const delayMs = Math.min(Math.pow(2, Math.min(reconnectAttempts, 15)) * 1000, MAX_RECONNECT_DELAY_MS);
+    console.log(`[${obtenerHoraLocal()}] [NODE] Reintentando en ${(delayMs / 1000).toFixed(0)}s (Intento #${reconnectAttempts})...`);
+
+    reconnectTimer = setTimeout(() => conectarWebSocket(), delayMs);
 }
 
 // ==============================================================================
-// COMUNICACIÓN CON MOTOR PYTHON Y EJECUCIÓN
+// COMUNICACION CON MOTOR PYTHON
 // ==============================================================================
 async function procesarDatosConPython(datosMercado) {
+    if (isShuttingDown) return;
+
     try {
         const payload = {
             ...datosMercado,
@@ -443,11 +462,16 @@ async function procesarDatosConPython(datosMercado) {
             }
         };
 
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 5000);
+
         const respuesta = await fetch(PYTHON_API_URL, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload)
+            body: JSON.stringify(payload),
+            signal: controller.signal
         });
+        clearTimeout(timeout);
 
         if (!respuesta.ok) return;
 
@@ -456,27 +480,28 @@ async function procesarDatosConPython(datosMercado) {
 
         if (decision.warmup && decision.status) {
             console.log(`[${hora}] [BOT] ${decision.status}`);
-        } else if (decision.bollinger && decision.rsi !== null) {
-            const scoreInfo = decision.score_call !== undefined ? ` | Confluencia [CALL:${decision.score_call}/100 PUT:${decision.score_put}/100]` : '';
-            console.log(`[${hora}] [BOT] 🎯 Vela 10s -> Precio: ${datosMercado.price.toFixed(6)} | RSI: ${decision.rsi}${scoreInfo}`);
-            if (decision.motivo && !decision.motivo.startsWith('Sin señal')) {
-                console.log(`[${hora}] [BOT] 💡 ${decision.motivo}`);
+        } else if (decision.rsi !== null && decision.rsi !== undefined) {
+            const scoreInfo = decision.score_call !== undefined ? ` | [CALL:${decision.score_call} PUT:${decision.score_put}]` : '';
+            console.log(`[${hora}] [BOT] Vela 10s -> Precio: ${datosMercado.price.toFixed(6)} | RSI: ${decision.rsi}${scoreInfo}`);
+            if (decision.motivo && !decision.motivo.startsWith('Sin senal')) {
+                console.log(`[${hora}] [BOT] ${decision.motivo}`);
             }
         }
 
-        // Si Python decide comprar (CALL) o vender (PUT) y NO hay otra operación en curso
         if ((decision.action === 'call' || decision.action === 'put') && !hayOperacionEnCurso) {
             ejecutarOperacion(activeBalanceId, decision.active_id || ACTIVE_ID, decision.action, decision.amount || 10.0, datosMercado.price);
         }
 
     } catch (error) {
-        console.error(`[${obtenerHoraLocal()}] [NODE] ⚠️ Motor de Python no disponible:`, error.message);
+        if (error.name !== 'AbortError') {
+            console.error(`[${obtenerHoraLocal()}] [NODE] Motor Python no disponible:`, error.message);
+        }
     }
 }
 
 function ejecutarOperacion(balanceId, idActivo, direccion, montoInversion, precioActual) {
-    if (hayOperacionEnCurso) return;
-    hayOperacionEnCurso = true; // Activar candado estricto
+    if (hayOperacionEnCurso || isShuttingDown) return;
+    hayOperacionEnCurso = true;
 
     const reqId = `${requestIdCounter++}`;
     const horaApertura = obtenerHoraLocal();
@@ -510,7 +535,7 @@ function ejecutarOperacion(balanceId, idActivo, direccion, montoInversion, preci
     if (ws && ws.readyState === WebSocket.OPEN) {
         ws.send(JSON.stringify(orden));
     } else {
-        console.error(`[${horaApertura}] [NODE] ❌ WebSocket desconectado al intentar enviar orden #${reqId}`);
+        console.error(`[${horaApertura}] [NODE] WebSocket desconectado al enviar orden #${reqId}`);
         hayOperacionEnCurso = false;
         return;
     }
@@ -520,22 +545,21 @@ function ejecutarOperacion(balanceId, idActivo, direccion, montoInversion, preci
         direccion: direccion.toUpperCase(),
         monto: montoInversion,
         precioEntrada: precioActual,
-        horaApertura: horaApertura,
-        horaExpiracion: horaExpiracion,
+        horaApertura,
+        horaExpiracion,
         expiracionSegundos: EXPIRATION_SECONDS,
         resuelto: false
     };
     ordenesActivas.set(reqId, infoOrden);
 
-    console.log(`\n═══════════════════════════════════════════════════════════════`);
-    console.log(`[${horaApertura}] 🚀 [ORDEN #${reqId}] ENVIADA AL BROKER`);
-    console.log(`├─ Dirección: ${direccion.toUpperCase() === 'CALL' ? '🟢 CALL (COMPRA)' : '🔴 PUT (VENTA)'}`);
-    console.log(`├─ Monto Invertido: $${montoInversion.toFixed(2)} USD`);
-    console.log(`├─ Precio Entrada (Strike): ${precioActual.toFixed(6)}`);
-    console.log(`└─ Hora Expiración: ${horaExpiracion} (${EXPIRATION_SECONDS}s de duración)`);
-    console.log(`═══════════════════════════════════════════════════════════════\n`);
+    console.log(`\n===============================================================`);
+    console.log(`[${horaApertura}] [ORDEN #${reqId}] ENVIADA AL BROKER`);
+    console.log(`  Direccion: ${direccion.toUpperCase() === 'CALL' ? 'CALL (COMPRA)' : 'PUT (VENTA)'}`);
+    console.log(`  Monto: $${montoInversion.toFixed(2)} USD`);
+    console.log(`  Precio Entrada: ${precioActual.toFixed(6)}`);
+    console.log(`  Expiracion: ${horaExpiracion} (${EXPIRATION_SECONDS}s)`);
+    console.log(`===============================================================\n`);
 
-    // Temporizador de respaldo y vigilancia (Watchdog failsafe a EXPIRATION_SECONDS + 8s)
     if (operationWatchdogTimer) clearTimeout(operationWatchdogTimer);
     operationWatchdogTimer = setTimeout(() => {
         evaluarResultadoLocal(reqId);
@@ -545,7 +569,7 @@ function ejecutarOperacion(balanceId, idActivo, direccion, montoInversion, preci
 function procesarCierreDeOrden(orden, resultadoOficial, precioSalidaOficial, gananciaNetaOficial) {
     if (!orden || orden.resuelto) return;
     orden.resuelto = true;
-    hayOperacionEnCurso = false; // Liberar candado inmediatamente
+    hayOperacionEnCurso = false;
     if (operationWatchdogTimer) clearTimeout(operationWatchdogTimer);
 
     const horaCierre = obtenerHoraLocal();
@@ -585,32 +609,32 @@ function procesarCierreDeOrden(orden, resultadoOficial, precioSalidaOficial, gan
     const totalOperaciones = estadisticas.ganadas + estadisticas.perdidas + estadisticas.empates;
     const winRate = totalOperaciones > 0 ? ((estadisticas.ganadas / (estadisticas.ganadas + estadisticas.perdidas || 1)) * 100).toFixed(1) : '0.0';
 
-    console.log(`\n═══════════════════════════════════════════════════════════════`);
-    console.log(`[${horaCierre}] 🏁 [RESULTADO OFICIAL ORDEN #${orden.id}]`);
-    console.log(`├─ Tipo: ${orden.direccion === 'CALL' ? '🟢 CALL' : '🔴 PUT'} | Monto: $${orden.monto.toFixed(2)} USD`);
-    console.log(`├─ Entrada: ${orden.precioEntrada.toFixed(6)}  ──▶  Salida: ${precioSalida.toFixed(6)}`);
+    console.log(`\n===============================================================`);
+    console.log(`[${horaCierre}] [RESULTADO ORDEN #${orden.id}]`);
+    console.log(`  ${orden.direccion} | Monto: $${orden.monto.toFixed(2)} USD`);
+    console.log(`  Entrada: ${orden.precioEntrada.toFixed(6)}  -->  Salida: ${precioSalida.toFixed(6)}`);
     if (resultado === 'GANADA') {
-        console.log(`├─ Veredicto: 🎉 ¡OPERACIÓN GANADA (ITM)! (+ $${gananciaNeta.toFixed(2)} USD)`);
+        console.log(`  GANADA (+$${gananciaNeta.toFixed(2)} USD)`);
     } else if (resultado === 'PERDIDA') {
-        console.log(`├─ Veredicto: 💥 OPERACIÓN PERDIDA (OTM) (- $${orden.monto.toFixed(2)} USD)`);
+        console.log(`  PERDIDA (-$${orden.monto.toFixed(2)} USD)`);
     } else {
-        console.log(`├─ Veredicto: ⚖️ OPERACIÓN EN EMPATE (ATM) ($0.00 USD)`);
+        console.log(`  EMPATE ($0.00 USD)`);
     }
-    console.log(`├─ Marcador Sesión: ${estadisticas.ganadas}W - ${estadisticas.perdidas}L - ${estadisticas.empates}D (Win Rate: ${winRate}%)`);
-    console.log(`└─ Balance Neto: ${estadisticas.balanceNeto >= 0 ? '+' : ''}$${estadisticas.balanceNeto.toFixed(2)} USD`);
-    console.log(`═══════════════════════════════════════════════════════════════\n`);
+    console.log(`  Marcador: ${estadisticas.ganadas}W - ${estadisticas.perdidas}L - ${estadisticas.empates}D (Win Rate: ${winRate}%)`);
+    console.log(`  Balance Neto: ${estadisticas.balanceNeto >= 0 ? '+' : ''}$${estadisticas.balanceNeto.toFixed(2)} USD`);
+    console.log(`===============================================================\n`);
 
-    // Escribir en archivo TXT
     registrarOperacionTxt(orden, resultado, gananciaNeta, precioSalida, horaCierre);
 
-    // Enviar feedback al motor de Python para almacenamiento estructurado en SQLite/CSV
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 5000);
     fetch('http://127.0.0.1:8000/resultado-operacion', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
             id: orden.id,
             order_id: orden.brokerId || orden.id,
-            resultado: resultado,
+            resultado,
             ganancia_neta: gananciaNeta,
             direccion: orden.direccion,
             precio_entrada: orden.precioEntrada,
@@ -619,14 +643,15 @@ function procesarCierreDeOrden(orden, resultadoOficial, precioSalidaOficial, gan
             payout_percent: PROFIT_PERCENT,
             account_type: activeAccountType,
             account_id: String(activeBalanceId)
-        })
-    }).catch(() => {});
+        }),
+        signal: controller.signal
+    }).catch(() => {}).finally(() => clearTimeout(timeout));
 }
 
 function evaluarResultadoLocal(reqId) {
     const orden = ordenesActivas.get(reqId);
     if (!orden || orden.resuelto) return;
-    console.log(`[${obtenerHoraLocal()}] [NODE] ⏱️ Temporizador guardián activado para Orden #${reqId}.`);
+    console.log(`[${obtenerHoraLocal()}] [NODE] Temporizador guardian activado para Orden #${reqId}.`);
     procesarCierreDeOrden(orden, null, lastKnownPrice, 0.0);
 }
 
@@ -635,7 +660,7 @@ function finalizarOrdenDesdeBroker(res) {
     let orden = null;
     const optionId = res.id || res.option_id;
     if (optionId) {
-        for (const [id, o] of ordenesActivas.entries()) {
+        for (const [, o] of ordenesActivas.entries()) {
             if (!o.resuelto && (o.brokerId == optionId || !o.brokerId)) {
                 orden = o;
                 break;
@@ -643,7 +668,7 @@ function finalizarOrdenDesdeBroker(res) {
         }
     }
     if (!orden) {
-        for (const [id, o] of ordenesActivas.entries()) {
+        for (const [, o] of ordenesActivas.entries()) {
             if (!o.resuelto) {
                 orden = o;
                 break;
@@ -684,13 +709,15 @@ function finalizarOrdenDesdeBroker(res) {
     procesarCierreDeOrden(orden, resultado, precioSalida, gananciaNeta);
 }
 
-// INICIAR CONEXIÓN
-console.log('═══════════════════════════════════════════════════════════════');
-console.log('  🤖 BOT DE TRADING CUANTITATIVO - CONEXIÓN CON BROKER IQ OPTION');
-console.log(`  ⏰ Hora de inicio: ${obtenerHoraLocal()}`);
-console.log(`  📊 Activo ID: ${ACTIVE_ID} (EUR/USD Blitz)`);
-console.log(`  ⏱️ Expiración: ${EXPIRATION_SECONDS}s | Payout: ${PROFIT_PERCENT}%`);
-console.log(`  💼 Modo Configurado: ${ACCOUNT_MODE.toUpperCase()}`);
-console.log('═══════════════════════════════════════════════════════════════');
+// ==============================================================================
+// INICIO
+// ==============================================================================
+console.log('===============================================================');
+console.log('  BOT DE TRADING CUANTITATIVO - BROKER IQ OPTION');
+console.log(`  Hora de inicio: ${obtenerHoraLocal()}`);
+console.log(`  Activo ID: ${ACTIVE_ID} (EUR/USD Blitz)`);
+console.log(`  Expiracion: ${EXPIRATION_SECONDS}s | Payout: ${PROFIT_PERCENT}%`);
+console.log(`  Modo: ${ACCOUNT_MODE.toUpperCase()}`);
+console.log('===============================================================');
 
 conectarWebSocket();
