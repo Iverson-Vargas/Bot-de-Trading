@@ -21,7 +21,7 @@ motor_dir = os.path.join(os.path.dirname(current_dir), "motor-logico")
 sys.path.append(motor_dir)
 
 from backtester import Backtester
-from strategy import LegacyConfluenceStrategy, CalibratedStatisticalStrategy
+from strategy import LegacyConfluenceStrategy, AdaptiveEdgeStrategy
 from risk_manager import RiskManager, RiskMode
 from data_fetcher import load_candles_from_csv, generate_benchmark_eurusd_candles
 
@@ -145,7 +145,7 @@ def main():
     )
 
     strat_legacy = LegacyConfluenceStrategy(min_score=65.0)
-    strat_calibrated = CalibratedStatisticalStrategy(min_score=70.0)
+    strat_calibrated = AdaptiveEdgeStrategy(min_score=85.0, use_macd_confirmation=True, use_session_filter=False)
 
     bt_legacy = Backtester(
         strategy=strat_legacy,

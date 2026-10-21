@@ -27,7 +27,7 @@ from indicators import (
     calcular_atr,
     calcular_ema
 )
-from strategy import BaseStrategy, LegacyConfluenceStrategy, CalibratedStatisticalStrategy, StrategyDecision
+from strategy import BaseStrategy, LegacyConfluenceStrategy, AdaptiveEdgeStrategy, CalibratedStatisticalStrategy, StrategyDecision
 from risk_manager import RiskManager, RiskMode
 from storage import TradeStorage
 from process_manager import bot_manager
@@ -101,7 +101,7 @@ risk_manager = RiskManager(
 )
 
 strategies: Dict[str, BaseStrategy] = {
-    "calibrated": CalibratedStatisticalStrategy(min_score=65.0),
+    "calibrated": AdaptiveEdgeStrategy(min_score=85.0, use_macd_confirmation=True, use_session_filter=False),
     "legacy": LegacyConfluenceStrategy(min_score=65.0)
 }
 active_strategy_name = "calibrated"

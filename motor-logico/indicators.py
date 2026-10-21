@@ -1,6 +1,7 @@
 """
-Módulo de Indicadores Técnicos y Acción del Precio
-Implementación matemática pura (zero-dependency) optimizada para alta velocidad.
+Modulo de Indicadores Tecnicos y Accion del Precio
+Implementacion matematica pura (zero-dependency) optimizada para alta velocidad.
+Incluye indicadores clasicos + MACD + regimen de volatilidad + filtros de sesion.
 """
 
 import math
@@ -8,14 +9,12 @@ from typing import List, Dict, Any, Optional, Tuple
 
 
 def calcular_sma(precios: List[float], periodo: int) -> Optional[float]:
-    """Calcula la Media Móvil Simple (SMA)."""
     if len(precios) < periodo or periodo <= 0:
         return None
     return sum(precios[-periodo:]) / periodo
 
 
 def calcular_ema(precios: List[float], periodo: int, smoothing: float = 2.0) -> Optional[float]:
-    """Calcula la Media Móvil Exponencial (EMA)."""
     if len(precios) < periodo or periodo <= 0:
         return None
     k = smoothing / (periodo + 1.0)
@@ -26,7 +25,6 @@ def calcular_ema(precios: List[float], periodo: int, smoothing: float = 2.0) -> 
 
 
 def calcular_desviacion_estandar(precios: List[float], periodo: int, media: Optional[float] = None) -> Optional[float]:
-    """Calcula la desviación estándar poblacional de los últimos 'periodo' precios."""
     if len(precios) < periodo or periodo <= 0:
         return None
     if media is None:
@@ -40,15 +38,6 @@ def calcular_bandas_bollinger(
     periodo: int = 20,
     num_std: float = 2.0
 ) -> Optional[Dict[str, float]]:
-    """
-    Calcula las Bandas de Bollinger:
-    - middle (SMA)
-    - upper (SMA + k*std)
-    - lower (SMA - k*std)
-    - std (Desviación estándar)
-    - bandwidth: ((upper - lower) / middle) * 100
-    - percent_b: (precio - lower) / (upper - lower)
-    """
     if len(precios) < periodo or periodo <= 0:
         return None
     sma = calcular_sma(precios, periodo)
@@ -61,7 +50,7 @@ def calcular_bandas_bollinger(
     upper = sma + (num_std * std)
     lower = sma - (num_std * std)
     bandwidth = ((upper - lower) / sma) * 100.0 if sma > 0 else 0.0
-    
+
     precio_actual = precios[-1]
     ancho = upper - lower
     percent_b = ((precio_actual - lower) / ancho) if ancho > 0 else 0.5
@@ -77,23 +66,17 @@ def calcular_bandas_bollinger(
 
 
 def calcular_rsi(precios: List[float], periodo: int = 14) -> Optional[float]:
-    """
-    Calcula el RSI (Relative Strength Index) utilizando el método de Wilder.
-    Rango: 0 a 100.
-    """
     if len(precios) <= periodo or periodo <= 0:
         return None
 
     cambios = [precios[i] - precios[i - 1] for i in range(1, len(precios))]
-    
-    # Inicialización con SMA de las primeras N variaciones
+
     ganancias_iniciales = [c for c in cambios[:periodo] if c > 0]
     perdidas_iniciales = [-c for c in cambios[:periodo] if c < 0]
 
     avg_gain = sum(ganancias_iniciales) / periodo if ganancias_iniciales else 0.0
     avg_loss = sum(perdidas_iniciales) / periodo if perdidas_iniciales else 0.0
 
-    # Suavizado de Wilder a lo largo del resto de la serie
     for c in cambios[periodo:]:
         gain = c if c > 0 else 0.0
         loss = -c if c < 0 else 0.0
@@ -116,10 +99,6 @@ def calcular_estocastico(
     oversold: float = 25.0,
     overbought: float = 75.0
 ) -> Optional[Dict[str, Any]]:
-    """
-    Calcula el Oscilador Estocástico Lento (%K, %D).
-    Retorna %K actual, %D actual, cruce alcista y cruce bajista.
-    """
     min_requerido = periodo_k + smooth_k + periodo_d
     if len(velas) < min_requerido:
         return None
@@ -156,7 +135,6 @@ def calcular_estocastico(
     k_previo = k_smooth_serie[-2] if len(k_smooth_serie) >= 2 else k_actual
     d_previo = sum(k_smooth_serie[-periodo_d - 1 : -1]) / periodo_d if len(k_smooth_serie) > periodo_d else d_actual
 
-    # Detección de cruces válidos o condición en extremos
     cruce_alcista = (k_previo <= d_previo and k_actual > d_actual) or (k_actual > d_actual and k_actual <= oversold)
     cruce_bajista = (k_previo >= d_previo and k_actual < d_actual) or (k_actual < d_actual and k_actual >= overbought)
 
@@ -171,12 +149,6 @@ def calcular_estocastico(
 
 
 def analizar_patron_vela(vela: Dict[str, float]) -> Dict[str, Any]:
-    """
-    Analiza la morfología de una vela:
-    - Mechas superior e inferior relativas (%)
-    - Tamaño del cuerpo vs rango total
-    - Detección de patrones de rechazo (Pinbar, Martillo / Shooting star)
-    """
     op = vela.get("open", vela.get("close", 0.0))
     cl = vela.get("close", op)
     hi = vela.get("max", vela.get("high", max(op, cl)))
@@ -203,7 +175,6 @@ def analizar_patron_vela(vela: Dict[str, float]) -> Dict[str, Any]:
     pct_mecha_sup = mecha_superior / rango_total
     pct_cuerpo = cuerpo / rango_total
 
-    # Rechazo significativo (mecha >= 25% del rango total y mecha dominante)
     rechazo_alcista = pct_mecha_inf >= 0.25 and (pct_mecha_inf > pct_mecha_sup * 1.2 or pct_mecha_inf >= 0.40)
     rechazo_bajista = pct_mecha_sup >= 0.25 and (pct_mecha_sup > pct_mecha_inf * 1.2 or pct_mecha_sup >= 0.40)
 
@@ -220,7 +191,6 @@ def analizar_patron_vela(vela: Dict[str, float]) -> Dict[str, Any]:
 
 
 def calcular_soportes_resistencias(velas: List[Dict[str, float]], lookback: int = 30) -> Dict[str, float]:
-    """Calcula los niveles extremos de soporte y resistencia dentro de la ventana lookback."""
     if len(velas) < 5:
         return {"soporte": 0.0, "resistencia": 999999.0}
     sub = velas[-lookback:]
@@ -233,7 +203,6 @@ def calcular_soportes_resistencias(velas: List[Dict[str, float]], lookback: int 
 
 
 def calcular_atr(velas: List[Dict[str, float]], periodo: int = 14) -> Optional[float]:
-    """Calcula el Average True Range (ATR)."""
     if len(velas) < periodo + 1:
         return None
 
@@ -251,3 +220,103 @@ def calcular_atr(velas: List[Dict[str, float]], periodo: int = 14) -> Optional[f
 
     atr = sum(true_ranges[-periodo:]) / periodo
     return round(atr, 6)
+
+
+def calcular_macd(
+    precios: List[float],
+    fast: int = 12,
+    slow: int = 26,
+    signal_period: int = 9
+) -> Optional[Dict[str, float]]:
+    """MACD: Moving Average Convergence Divergence."""
+    if len(precios) < slow + signal_period:
+        return None
+
+    k_fast = 2.0 / (fast + 1.0)
+    k_slow = 2.0 / (slow + 1.0)
+
+    ema_fast = precios[0]
+    ema_slow = precios[0]
+    macd_series = []
+
+    for i, p in enumerate(precios):
+        if i == 0:
+            ema_fast = p
+            ema_slow = p
+        else:
+            ema_fast = p * k_fast + ema_fast * (1 - k_fast)
+            ema_slow = p * k_slow + ema_slow * (1 - k_slow)
+        if i >= slow - 1:
+            macd_series.append(ema_fast - ema_slow)
+
+    if len(macd_series) < signal_period:
+        return None
+
+    k_sig = 2.0 / (signal_period + 1.0)
+    sig = macd_series[0]
+    prev_sig = sig
+    for idx, m in enumerate(macd_series[1:], 1):
+        prev_sig = sig
+        sig = m * k_sig + sig * (1 - k_sig)
+
+    macd_val = macd_series[-1]
+    histogram = macd_val - sig
+    prev_histogram = macd_series[-2] - prev_sig if len(macd_series) >= 2 else histogram
+
+    return {
+        "macd": round(macd_val, 8),
+        "signal": round(sig, 8),
+        "histogram": round(histogram, 8),
+        "prev_histogram": round(prev_histogram, 8),
+        "hist_rising": histogram > prev_histogram,
+        "hist_positive": histogram > 0,
+    }
+
+
+def calcular_volatility_regime(
+    velas: List[Dict[str, float]],
+    atr_period: int = 14,
+    sma_period: int = 50
+) -> Optional[Dict[str, Any]]:
+    """Clasifica el regimen de volatilidad: bajo, normal, alto."""
+    if len(velas) < sma_period + atr_period:
+        return None
+
+    atr_values = []
+    for end in range(atr_period + 1, len(velas) + 1):
+        sub = velas[max(0, end - atr_period - 1):end]
+        a = calcular_atr(sub, atr_period)
+        if a is not None:
+            atr_values.append(a)
+
+    if len(atr_values) < sma_period:
+        return None
+
+    current_atr = atr_values[-1]
+    avg_atr = sum(atr_values[-sma_period:]) / sma_period
+    ratio = current_atr / avg_atr if avg_atr > 0 else 1.0
+
+    if ratio < 0.6:
+        regime = "low"
+    elif ratio > 1.5:
+        regime = "high"
+    else:
+        regime = "normal"
+
+    return {
+        "atr": current_atr,
+        "avg_atr": round(avg_atr, 6),
+        "ratio": round(ratio, 3),
+        "regime": regime,
+    }
+
+
+def extraer_hora_utc(timestamp: int) -> Optional[int]:
+    """Extrae la hora UTC de un timestamp UNIX."""
+    if timestamp <= 0:
+        return None
+    try:
+        from datetime import datetime, timezone
+        return datetime.fromtimestamp(timestamp, tz=timezone.utc).hour
+    except Exception:
+        return None
