@@ -79,12 +79,27 @@ class TradeStorage:
                 soporte REAL,
                 resistencia REAL,
                 atr REAL,
+                macd_line REAL,
+                macd_signal REAL,
+                macd_histogram REAL,
+                macd_hist_rising INTEGER,
                 FOREIGN KEY (trade_id) REFERENCES trades(id)
             )
             """)
 
             cursor.execute("CREATE INDEX IF NOT EXISTS idx_trades_outcome ON trades(outcome)")
             cursor.execute("CREATE INDEX IF NOT EXISTS idx_trades_timestamp ON trades(timestamp)")
+
+            # Migrate: add MACD columns if missing
+            try:
+                cursor.execute("SELECT macd_line FROM trade_indicators LIMIT 1")
+            except sqlite3.OperationalError:
+                for col in ["macd_line REAL", "macd_signal REAL", "macd_histogram REAL", "macd_hist_rising INTEGER"]:
+                    try:
+                        cursor.execute(f"ALTER TABLE trade_indicators ADD COLUMN {col}")
+                    except sqlite3.OperationalError:
+                        pass
+
             conn.commit()
 
     def save_trade(
@@ -136,13 +151,16 @@ class TradeStorage:
                 patron_vela = indicators.get("patron_vela") or {}
                 niveles_sr = indicators.get("niveles_sr") or {}
 
+                macd = indicators.get("macd") or {}
+
                 cursor.execute("""
                 INSERT OR REPLACE INTO trade_indicators (
                     trade_id, rsi, bollinger_middle, bollinger_upper, bollinger_lower,
                     bollinger_std, bollinger_bandwidth, stoch_k, stoch_d,
                     stoch_cruce_alcista, stoch_cruce_bajista, pct_mecha_inf,
-                    pct_mecha_sup, rechazo_alcista, rechazo_bajista, soporte, resistencia, atr
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    pct_mecha_sup, rechazo_alcista, rechazo_bajista, soporte, resistencia, atr,
+                    macd_line, macd_signal, macd_histogram, macd_hist_rising
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """, (
                     trade_id,
                     indicators.get("rsi"),
@@ -161,7 +179,11 @@ class TradeStorage:
                     1 if patron_vela.get("rechazo_bajista") else 0,
                     niveles_sr.get("soporte"),
                     niveles_sr.get("resistencia"),
-                    indicators.get("atr")
+                    indicators.get("atr"),
+                    macd.get("macd_line"),
+                    macd.get("signal_line"),
+                    macd.get("histogram"),
+                    1 if macd.get("hist_rising") else 0
                 ))
 
             conn.commit()
