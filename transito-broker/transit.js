@@ -257,6 +257,9 @@ function extraerBalancesDeMensaje(mensaje) {
 // ==============================================================================
 // CONEXION WEBSOCKET CON AUTO-RECONEXION
 // ==============================================================================
+let connectionOpenedAt = 0;
+let subscriptionSent = false;
+
 function conectarWebSocket() {
     if (isShuttingDown) return;
 
@@ -267,32 +270,23 @@ function conectarWebSocket() {
         } catch (e) {}
     }
 
+    isAuthenticated = false;
+    subscriptionSent = false;
+
     console.log(`\n[${obtenerHoraLocal()}] [NODE] Conectando con servidor WebSocket IQ Option...`);
 
     ws = new WebSocket(WS_BROKER_URL, {
         origin: 'https://iqoption.com',
         headers: {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
         }
     });
 
     ws.on('open', () => {
+        connectionOpenedAt = Date.now();
         console.log(`[${obtenerHoraLocal()}] [NODE] Conexion establecida.`);
-        reconnectAttempts = 0;
 
-        console.log(`[${obtenerHoraLocal()}] [NODE] Enviando credenciales de autenticacion...`);
-        ws.send(JSON.stringify({
-            name: "authenticate",
-            request_id: `auth_${Date.now()}`,
-            local_time: Math.floor(Date.now() / 1000),
-            msg: {
-                ssid: SSID,
-                protocol: 3,
-                session_id: "",
-                client_session_id: ""
-            }
-        }));
-
+        console.log(`[${obtenerHoraLocal()}] [NODE] Enviando SSID para autenticacion...`);
         ws.send(JSON.stringify({
             name: "ssid",
             msg: SSID,
@@ -304,7 +298,7 @@ function conectarWebSocket() {
             if (ws && ws.readyState === WebSocket.OPEN) {
                 ws.send(JSON.stringify({ name: "heartbeat", userTime: Date.now() }));
             }
-        }, 20000);
+        }, 15000);
     });
 
     ws.on('message', async (data) => {
@@ -322,49 +316,84 @@ function conectarWebSocket() {
             return;
         }
 
-        if (mensaje.name === 'auth-error' || (mensaje.msg?.is_successful === false && mensaje.request_id?.startsWith('auth_'))) {
+        // Debug: log non-trivial messages during connection setup
+        if (!isAuthenticated && mensaje.name !== 'timeSync') {
+            console.log(`[${obtenerHoraLocal()}] [NODE] [DEBUG] Mensaje: ${mensaje.name} (req_id: ${mensaje.request_id || '-'})`);
+        }
+
+        if (mensaje.name === 'auth-error' || (mensaje.msg?.is_successful === false && mensaje.request_id?.startsWith('ssid_'))) {
             console.error(`\n[${obtenerHoraLocal()}] ERROR CRITICO: SSID INVALIDO O EXPIRADO.`);
             console.error('  Obtiene un nuevo SSID desde las cookies de tu navegador en iqoption.com');
             console.error('  y actualiza el archivo .env con: SSID=tu_nuevo_ssid\n');
+            isShuttingDown = true;
             return;
         }
 
         extraerBalancesDeMensaje(mensaje);
 
-        if (mensaje.name === 'authenticated' || mensaje.name === 'profile') {
-            if (isAuthenticated) return;
+        if (mensaje.name === 'profile' && !isAuthenticated) {
             isAuthenticated = true;
             console.log(`[${obtenerHoraLocal()}] [NODE] Autenticado exitosamente en IQ Option!`);
 
-            console.log(`[${obtenerHoraLocal()}] [NODE] Suscribiendose a velas de 10s del activo ${ACTIVE_ID}...`);
-            ws.send(JSON.stringify({
-                name: "subscribeMessage",
-                request_id: `sub_candles_${Date.now()}`,
-                msg: {
-                    name: "candle-generated",
-                    params: {
-                        routingFilters: {
-                            active_id: ACTIVE_ID,
-                            size: 10
+            // Wait briefly before subscribing to let the server finish processing
+            setTimeout(() => {
+                if (!ws || ws.readyState !== WebSocket.OPEN || subscriptionSent) return;
+                subscriptionSent = true;
+
+                console.log(`[${obtenerHoraLocal()}] [NODE] Suscribiendose a velas de 10s del activo ${ACTIVE_ID}...`);
+                ws.send(JSON.stringify({
+                    name: "subscribeMessage",
+                    request_id: `sub_candles_${Date.now()}`,
+                    msg: {
+                        name: "candle-generated",
+                        params: {
+                            routingFilters: {
+                                active_id: ACTIVE_ID,
+                                size: 10
+                            }
                         }
                     }
-                }
-            }));
+                }));
 
-            ws.send(JSON.stringify({
-                name: "subscribeMessage",
-                request_id: `sub_quotes_${Date.now()}`,
-                msg: {
-                    name: "quote",
-                    params: {
-                        routingFilters: { active_id: ACTIVE_ID }
+                // Request initial candles history for faster warmup
+                ws.send(JSON.stringify({
+                    name: "sendMessage",
+                    request_id: `get_candles_${Date.now()}`,
+                    msg: {
+                        name: "get-candles",
+                        version: "2.0",
+                        body: {
+                            active_id: ACTIVE_ID,
+                            size: 60,
+                            count: 200,
+                            to: Math.floor(Date.now() / 1000)
+                        }
                     }
-                }
-            }));
+                }));
 
-            setTimeout(() => {
-                if (!sessionStartedTxt) registrarInicioSesionTxt();
-            }, 3000);
+                setTimeout(() => {
+                    if (!sessionStartedTxt) registrarInicioSesionTxt();
+                }, 3000);
+            }, 500);
+            return;
+        }
+
+        if (mensaje.name === 'candles' && Array.isArray(mensaje.msg?.candles)) {
+            const velas = mensaje.msg.candles;
+            console.log(`[${obtenerHoraLocal()}] [NODE] Recibidas ${velas.length} velas historicas M1 para warmup.`);
+            for (const v of velas) {
+                lastKnownPrice = v.close || v.value || lastKnownPrice;
+                await procesarDatosConPython({
+                    active_id: ACTIVE_ID,
+                    price: lastKnownPrice,
+                    open: v.open,
+                    close: v.close,
+                    min: v.min,
+                    max: v.max,
+                    volume: v.volume,
+                    timestamp: v.to || v.from || Math.floor(Date.now() / 1000)
+                });
+            }
             return;
         }
 
@@ -415,9 +444,16 @@ function conectarWebSocket() {
     });
 
     ws.on('close', (codigo, razon) => {
-        console.warn(`[${obtenerHoraLocal()}] [NODE] Conexion cerrada. Codigo: ${codigo}`);
+        const aliveMs = Date.now() - connectionOpenedAt;
+        console.warn(`[${obtenerHoraLocal()}] [NODE] Conexion cerrada. Codigo: ${codigo} (estuvo ${(aliveMs/1000).toFixed(1)}s activa)`);
         isAuthenticated = false;
         if (heartbeatInterval) clearInterval(heartbeatInterval);
+
+        // Only reset reconnect counter if connection was stable (>10s)
+        if (aliveMs > 10000) {
+            reconnectAttempts = 0;
+        }
+
         if (!isShuttingDown) programarReconexion();
     });
 
@@ -437,8 +473,9 @@ function programarReconexion() {
         return;
     }
 
+    // Exponential backoff: 2s, 4s, 8s, 16s, 30s max
     const delayMs = Math.min(Math.pow(2, Math.min(reconnectAttempts, 15)) * 1000, MAX_RECONNECT_DELAY_MS);
-    console.log(`[${obtenerHoraLocal()}] [NODE] Reintentando en ${(delayMs / 1000).toFixed(0)}s (Intento #${reconnectAttempts})...`);
+    console.log(`[${obtenerHoraLocal()}] [NODE] Reintentando en ${(delayMs / 1000).toFixed(0)}s (Intento #${reconnectAttempts} de ${MAX_RECONNECT_ATTEMPTS})...`);
 
     reconnectTimer = setTimeout(() => conectarWebSocket(), delayMs);
 }
